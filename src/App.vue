@@ -1,12 +1,26 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
     <router-view />
+    <BarBottom />
   </div>
 </template>
+
+<script>
+// @ is an alias to /src
+import BarBottom from "@/components/BarBottom.vue";
+
+export default {
+  name: "Top",
+  data() {
+    return {
+      title: "Top",
+    };
+  },
+  components: {
+    BarBottom,
+  },
+};
+</script>
 
 <style lang="scss">
 #app {

@@ -7,7 +7,16 @@
       <a href="https://cli.vuejs.org" target="_blank" rel="noopener"
         >vue-cli documentation</a
       >.
+      <br />
+      this is customized line by 井口.
     </p>
+    <div class="container">
+      <div class="row">
+        <div class="col-3">col-3</div>
+        <div class="col-3">col-3</div>
+        <div class="col-6">col-6</div>
+      </div>
+    </div>
     <h3>Installed CLI Plugins</h3>
     <ul>
       <li>
@@ -21,9 +30,7 @@
       <li>
         <a
           href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-pwa"
-          target="_blank"
-          rel="noopener"
-          >pwa</a
+          >pwa<!-- 戻れない --></a
         >
       </li>
       <li>

@@ -13,10 +13,12 @@
           </ol>
           <p>importをmain.jsで行う場合</p>
           <ol>
-            <li>importをmain.jsで<br/>下記以外では上手くいかず<br/>
+            <li>
+              importをmain.jsで<br />下記以外では上手くいかず<br />
               <code>window.jq = require('jquery')</code>
             </li>
-            <li>monuted でイベント記述<br/>
+            <li>
+              monuted でイベント記述<br />
               <code>window.jq("#BUTJQMAIN").on('click',function(){ ...</code>
             </li>
             <li><button id="BUTJQMAIN">alert by main jquery</button></li>
@@ -47,7 +49,7 @@
           </ul>
           <h2>サンプル</h2>
           <p>以下をインポートして使用するパターン</p>
-<pre><code>
+          <pre><code>
 // クラス定義(モジュールの公開クラス)
 //  使用時は
 //    import { CSample } from "@/components/themes/CSample.js";
@@ -103,8 +105,8 @@ export class CSample {
 </template>
 
 <script>
-import $ from 'jquery';
-import { CSample } from './CSample.js';
+import $ from "jquery";
+import { CSample } from "./CSample.js";
 export default {
   name: "xxx",
   data() {
@@ -116,21 +118,23 @@ export default {
   props: {
     msg: String,
   },
-  mounted:function() {
+  mounted: function () {
     // jQuery
-    console.log("this is "+this.myName+" mounted");
-    $("#BUTJQ").on('click',function(){
+    console.log("this is " + this.myName + " mounted");
+    $("#BUTJQ").on("click", function () {
       console.log("function by jquery on BUTJQ");
       alert("alert by JQ");
     });
-    window.jq("#BUTJQMAIN").on('click',function(){
-       console.log("function by jquery on BUTJQ MAIN");
+    window.jq("#BUTJQMAIN").on("click", function () {
+      console.log("function by jquery on BUTJQ MAIN");
       alert("alert by JQ MAIN");
     });
     // CSample
-    let objSample = new CSample(this.myName,this.myTitle);
-    console.log("function by CSample name:"+objSample.name+" title:"+objSample.title);
-  }
+    let objSample = new CSample(this.myName, this.myTitle);
+    console.log(
+      "function by CSample name:" + objSample.name + " title:" + objSample.title
+    );
+  },
 };
 </script>
 

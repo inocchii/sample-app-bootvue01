@@ -5,7 +5,9 @@
       Router経由での値の受け渡しを this.$route.query.xx で行っている。
       routerでの定義は path: "/themes" とし、routerに対して /themes?id=xx&title=yyでパラメータを受ける。
     -->
-    <div>catg={{ this.$route.query.catg }} title={{ this.$route.query.title }}</div>
+    <div>
+      catg={{ this.$route.query.catg }} title={{ this.$route.query.title }}
+    </div>
     <div v-if="this.$route.query.catg === 'Env'">Vue＆Bootstrap開発環境</div>
     <ThemesRule v-else-if="getTemplate === 'Rule'" />
     <ThemesBasic v-else-if="getTemplate === 'Basic'" />
@@ -18,7 +20,7 @@
     <ThemesVue v-else-if="getTemplate === 'Vue'" />
     <div v-else-if="this.$route.query.catg === 'Vuex'">Vuex</div>
     <div v-else-if="this.$route.query.catg === 'Router'">Router</div>
-    <div v-else>category not defined ({{this.$route.query.catg}})</div>
+    <div v-else>category not defined ({{ this.$route.query.catg }})</div>
   </div>
 </template>
 

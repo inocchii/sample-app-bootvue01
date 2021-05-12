@@ -25,7 +25,9 @@
             <li>読み出し：<code>buf = localStorage.getItem('key');</code></li>
           </ul>
           <h2>例01：配列をlocalStorageに書き込み、読み出しで復元</h2>
-          <p>画面上で編集した配列をlocalStorageに保存。読み出して画面に復元する。</p>
+          <p>
+            画面上で編集した配列をlocalStorageに保存。読み出して画面に復元する。
+          </p>
           <article class="wrap">
             <!-- 読み込み -->
             <section class="read-area">
@@ -106,7 +108,7 @@
           <ul class="wrap">
             <li>
               <p>SR：１レコード型(ひむか)</p>
-<pre><code>
+              <pre><code>
     { "code": "F5305",
       "name": "ふわふわソファー",
       "price": 285000 },
@@ -114,7 +116,7 @@
             </li>
             <li>
               <p>HR：階層型(レコード内に配列)</p>
-<pre><code>
+              <pre><code>
 {
   "title": "GoodsData",
   "data": [
@@ -130,7 +132,7 @@
             </li>
             <li>
               <p>MR：複数レコード型</p>
-<pre><code>
+              <pre><code>
 {
   [
     { "code": "F5305",
@@ -244,5 +246,4 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>

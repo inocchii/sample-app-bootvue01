@@ -57,7 +57,7 @@ div.card-text {
   padding: 0px 0px 0px 20px;
 }
 div.card-text > h2 {
-  font-size: 1.0rem;
+  font-size: 1rem;
 }
 div.card-text > code {
   padding: 0px, 0px;
@@ -66,5 +66,4 @@ div.card-text > code {
 div.card-text > li > p {
   margin-bottom: 0.5rem;
 }
-
 </style>

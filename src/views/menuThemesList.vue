@@ -7,7 +7,7 @@
     -->
     <!-- 指定カテゴリでテーマを抽出してリスト -->
     <div class="card-group">
-      <p>catg={{catg}}</p>
+      <p>catg={{ catg }}</p>
       <!-- OUR_THEMESはmixins/notes.jsに定義 -->
       <div
         class="card"
@@ -15,14 +15,16 @@
         :key="theme.title"
         :id="getAnchorId(theme.id)"
       >
-        <div v-if="isTarget(catg,theme)">
+        <div v-if="isTarget(catg, theme)">
           <router-link
             class="card text-white bg-dark"
             role="button"
-            :to="getPath(theme.catg,theme.title)"
+            :to="getPath(theme.catg, theme.title)"
           >
             <h6 class="card-header text-left">
-              <i :class="getIconChecked(theme.checked)"></i>&nbsp;{{ theme.title }}
+              <i :class="getIconChecked(theme.checked)"></i>&nbsp;{{
+                theme.title
+              }}
             </h6>
             <div class="card-body">
               <div class="card-text text-left">
@@ -52,7 +54,7 @@ export default {
   },
   methods: {
     getPath(argCatg, argTitle) {
-      return this.OUR_THEME_PATH + "?catg="+ argCatg + "&title=" + argTitle;
+      return this.OUR_THEME_PATH + "?catg=" + argCatg + "&title=" + argTitle;
     },
     getAnchor(argId) {
       return "#" + this.anchorKey + "-" + argId;
@@ -69,24 +71,23 @@ export default {
     },
   },
   computed: {
-    isTarget: function() {
-      return function(argCatg,argTheme) {
-        if ( argCatg == "" || argCatg == null ) {
+    isTarget: function () {
+      return function (argCatg, argTheme) {
+        if (argCatg == "" || argCatg == null) {
           return true;
         } else {
-          if ( argCatg == argTheme.catg ) {
+          if (argCatg == argTheme.catg) {
             return true;
           }
         }
         return false;
-      }
-    }
+      };
+    },
   },
   components: {
     BarTop,
   },
-  props: {
-  },
+  props: {},
   /*
   mixins: {
     notes,

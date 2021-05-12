@@ -109,7 +109,10 @@
         <a href="#homeTab" class="list-group-item list-group-item-action"
           >タブへ</a
         >
-        <a href="#homeTab" @click="setTabIndexByNm('Theme')" class="list-group-item list-group-item-action"
+        <a
+          href="#homeTab"
+          @click="setTabIndexByNm('Theme')"
+          class="list-group-item list-group-item-action"
           >タブ指定(Themeタブ)</a
         >
         <a href="#homeLinkList" class="list-group-item list-group-item-action"
@@ -135,12 +138,12 @@ export default {
   name: "MenuForTest",
   created() {
     // tab位置がvuexのTABINDEXESに保存されていれば復元
-    if ( this.$store.state.TABINDEXES['MenuForTest'] ) {
-      this.tabIndex = this.$store.state.TABINDEXES['MenuForTest'];
+    if (this.$store.state.TABINDEXES["MenuForTest"]) {
+      this.tabIndex = this.$store.state.TABINDEXES["MenuForTest"];
     }
   },
   mounted() {
-    console.log("mounted id="+this.$route.query.menuid);
+    console.log("mounted id=" + this.$route.query.menuid);
   },
   data() {
     return {
@@ -200,19 +203,19 @@ export default {
           words: "Bootstrap＆VueでのJavaScript使用",
         },
         {
-          path: "/themeslist?catg=Data", 
-          title: "Data", 
-          words: "データ保持について" ,
+          path: "/themeslist?catg=Data",
+          title: "Data",
+          words: "データ保持について",
         },
         {
-          path: "/themeslist?catg=LocalStorage", 
-          title: "LocalStorage", 
-          words: "LocalStorageについて" ,
+          path: "/themeslist?catg=LocalStorage",
+          title: "LocalStorage",
+          words: "LocalStorageについて",
         },
         {
-          path: "/themeslist?catg=Database", 
-          title: "Database", 
-          words: "Databaseについて" ,
+          path: "/themeslist?catg=Database",
+          title: "Database",
+          words: "Databaseについて",
         },
         {
           path: "/themeslist?catg=JSON",
@@ -259,10 +262,13 @@ export default {
     };
   },
   watch: {
-    tabIndex: function() {
-      console.log("MenuForTest tabIndex changed :"+this.tabIndex);
-      this.$store.commit('setTabIndex',['MenuForTest',this.tabIndex]);
-      console.log("MenuForTest tabIndex keeped to TABINDEXES[MenuForTest] :"+this.$store.state.TABINDEXES['MenuForTest']);
+    tabIndex: function () {
+      console.log("MenuForTest tabIndex changed :" + this.tabIndex);
+      this.$store.commit("setTabIndex", ["MenuForTest", this.tabIndex]);
+      console.log(
+        "MenuForTest tabIndex keeped to TABINDEXES[MenuForTest] :" +
+          this.$store.state.TABINDEXES["MenuForTest"]
+      );
     },
   },
   computed: {

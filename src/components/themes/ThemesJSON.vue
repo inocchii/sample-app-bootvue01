@@ -9,7 +9,7 @@
           <ul class="wrap">
             <li>
               <p>SR：１レコード型(ひむか)</p>
-<pre><code>
+              <pre><code>
     { "code": "F5305",
       "name": "ふわふわソファー",
       "price": 285000 },
@@ -17,7 +17,7 @@
             </li>
             <li>
               <p>HR：階層型(レコード内に配列)</p>
-<pre><code>
+              <pre><code>
 {
   "title": "GoodsData",
   "data": [
@@ -33,7 +33,7 @@
             </li>
             <li>
               <p>MR：複数レコード型</p>
-<pre><code>
+              <pre><code>
 {
   [
     { "code": "F5305",
@@ -60,18 +60,15 @@
 export default {
   name: "ThemesData",
   data() {
-    return {
-    };
+    return {};
   },
   /*
   mounted: function(){
     var v = this;
   },
   */
-  computed: {
-  },
-  methods: {
-  },
+  computed: {},
+  methods: {},
   props: {
     msg: String,
   },
@@ -79,5 +76,4 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>

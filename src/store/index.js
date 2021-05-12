@@ -18,8 +18,8 @@ export default new Vuex.Store({
     },
     addPageCnt() { state.pageCnt++; }
     */
-    setTabIndex(state,argArr) {
-      console.log("Vuex key="+argArr[0]+" value="+argArr[1])
+    setTabIndex(state, argArr) {
+      console.log("Vuex key=" + argArr[0] + " value=" + argArr[1]);
       state.TABINDEXES[argArr[0]] = argArr[1];
     },
   },

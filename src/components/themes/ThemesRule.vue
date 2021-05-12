@@ -6,7 +6,7 @@
       <div class="card-body">
         <div class="card-text">
           <h2>Vue CLI 構築後のフォルダ構成</h2>
-<pre><code>
+          <pre><code>
 src
 --assets
 --components
@@ -17,9 +17,13 @@ src
 --views
 </code></pre>
           <h2>フォルダ構成の例</h2>
-          <code>https://ichi.pro/vue-js-purojyekuto-o-koseisuru-hoho-250991675966892</code>
-          <p>中核をmodulesとしている。サブシステム毎にcomponents,store,各helperを格納</p>
-<pre><code>
+          <code
+            >https://ichi.pro/vue-js-purojyekuto-o-koseisuru-hoho-250991675966892</code
+          >
+          <p>
+            中核をmodulesとしている。サブシステム毎にcomponents,store,各helperを格納
+          </p>
+          <pre><code>
 src
 --assets
 --common
@@ -64,7 +68,7 @@ src
 </template>
 
 <script>
-import $ from 'jquery';
+import $ from "jquery";
 export default {
   name: "xxx",
   data() {
@@ -75,17 +79,17 @@ export default {
   props: {
     msg: String,
   },
-  mounted:function() {
-    console.log("this is "+this.myName+" mounted");
-    $("#BUTJQ").on('click',function(){
+  mounted: function () {
+    console.log("this is " + this.myName + " mounted");
+    $("#BUTJQ").on("click", function () {
       console.log("function by jquery on BUTJQ");
       alert("alert by JQ");
     });
-    window.jq("#BUTJQMAIN").on('click',function(){
-       console.log("function by jquery on BUTJQ MAIN");
+    window.jq("#BUTJQMAIN").on("click", function () {
+      console.log("function by jquery on BUTJQ MAIN");
       alert("alert by JQ MAIN");
     });
-  }
+  },
 };
 </script>
 

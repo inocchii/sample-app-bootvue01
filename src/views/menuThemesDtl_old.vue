@@ -16,10 +16,12 @@
           </ol>
           <p>importをmain.jsで行う場合</p>
           <ol>
-            <li>importをmain.jsで<br/>下記以外では上手くいかず<br/>
+            <li>
+              importをmain.jsで<br />下記以外では上手くいかず<br />
               <code>window.jq = require('jquery')</code>
             </li>
-            <li>monuted でイベント記述<br/>
+            <li>
+              monuted でイベント記述<br />
               <code>window.jq("#BUTJQMAIN").on('click',function(){ ...</code>
             </li>
             <li><button id="BUTJQMAIN">alert by main jquery</button></li>
@@ -63,7 +65,9 @@
             <li>読み出し：<code>buf = localStorage.getItem('key');</code></li>
           </ul>
           <h2>例01：配列をlocalStorageに書き込み、読み出しで復元</h2>
-          <p>画面上で編集した配列をlocalStorageに保存。読み出して画面に復元する。</p>
+          <p>
+            画面上で編集した配列をlocalStorageに保存。読み出して画面に復元する。
+          </p>
           <article class="wrap">
             <!-- 読み込み -->
             <section class="read-area">
@@ -172,10 +176,10 @@
               </button>
               {{ ex2_res_data }}
               <!-- レコードごとに処理 -->
-              <div v-for="(value,key,index) in ex2_res_arr" :key="index">
-              {{ key }} / {{ value }} / {{ index }}
+              <div v-for="(value, key, index) in ex2_res_arr" :key="index">
+                {{ key }} / {{ value }} / {{ index }}
                 <!-- 項目ごとに処理 -->
-                <div v-for="(v2,k2,i2) in value" :key="i2">
+                <div v-for="(v2, k2, i2) in value" :key="i2">
                   {{ k2 }} / {{ v2 }} / {{ i2 }}
                 </div>
               </div>
@@ -237,7 +241,6 @@
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -259,10 +262,9 @@ export default {
       //ex2_url: "./json/j1.json",    // public/json/j1.json
       //ex2_param: "function=getTenpoInfo&tenpo_cd=001",  // パラメータ
       //ex2_param: "function=getBunInfo&bun_cd=01&bun_kbn=2",  // パラメータ
-      ex2_res: null,      // 戻り情報丸ごとの格納
+      ex2_res: null, // 戻り情報丸ごとの格納
       ex2_res_data: null, // 戻りデータの格納
-      ex2_res_arr: null,  // 戻りデータを配列に格納
-
+      ex2_res_arr: null, // 戻りデータを配列に格納
     };
   },
   /*
@@ -347,10 +349,10 @@ export default {
       //var ex2_url = "./json/j3.json";    // public/json/j3.json
       // 実データの例
       //var ex2_url = 'http://172.16.3.28/hiway13/standard/tenpo/pc/test/ajxTester.php';
-      var ex2_url = 'https://api.coindesk.com/v1/bpi/currentprice.json';
+      var ex2_url = "https://api.coindesk.com/v1/bpi/currentprice.json";
       // パラメータ
       //var ex2_param = "function=getTenpoInfo&tenpo_cd=001";  // パラメータ
-      var ex2_param = "function=getBunInfo&bun_cd=01&bun_kbn=2";  // パラメータ
+      var ex2_param = "function=getBunInfo&bun_cd=01&bun_kbn=2"; // パラメータ
       console.log("Ajax要求 url=" + ex2_url + " param=" + ex2_param);
       let res = null;
       await this.axios
@@ -373,7 +375,7 @@ export default {
       console.log("res.data:" + res.data);
       //this.ex2_res_data = decodeURIComponent(res.data);
       console.log("JSON.stringify(res.data):" + JSON.stringify(res.data));
-      var buf,arr;
+      var buf, arr;
       try {
         this.ex2_res_data = decodeURIComponent(res.data);
         console.log("ok decodeURIComponent(res.data):" + this.ex2_res_data);
@@ -382,14 +384,14 @@ export default {
         //arr = buf[0];
         arr = buf;
         console.log("ok get arr:buf" + arr);
-      } catch(e) {
+      } catch (e) {
         this.ex2_res_data = JSON.stringify(res.data);
         buf = JSON.stringify(res.data);
         console.log("ok JSON.stringify(res.data):buf:" + buf);
         arr = JSON.parse(buf);
         console.log("ok JSON.parse(xx):buf:" + buf);
       }
-      console.log("JSON buf:"+buf+" arr:"+arr);
+      console.log("JSON buf:" + buf + " arr:" + arr);
       /*
       if ( this.ex2_res_data instanceof JSONArray ) {
         buf = JSON.parse(this.ex2_res_data);
@@ -424,7 +426,7 @@ export default {
   font-size: 0.8rem;
   line-height: 1.2;
 }
-.card-text>h2 {
-  font-size: 1.0rem;
+.card-text > h2 {
+  font-size: 1rem;
 }
 </style>

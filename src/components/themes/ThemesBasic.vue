@@ -4,8 +4,10 @@
       <div class="card-header">戻ったときにタブ位置を復元したい</div>
       <div class="card-body">
         <div class="card-text">
-          <p>Bootstrap-Vueのタブを使用。<br/>画面に戻ってきた時にタブが初期状態に戻ってしまう。</p>
-          <h2>Bootstrap&Vueのタブ (tabIndex:{{tabIndex}})</h2>
+          <p>
+            Bootstrap-Vueのタブを使用。<br />画面に戻ってきた時にタブが初期状態に戻ってしまう。
+          </p>
+          <h2>Bootstrap&Vueのタブ (tabIndex:{{ tabIndex }})</h2>
           <b-tabs content-class="mt-3" v-model="tabIndex">
             <b-tab title="Home"></b-tab>
             <b-tab title="Tab1"></b-tab>
@@ -16,7 +18,9 @@
             <li>tabIndexの値を変えることでタブ位置変更も可能</li>
             <li>画面復帰時にtabIndexが初期値ゼロになってしまう</li>
           </ul>
-          <p>（案）tabIndexの変化時にtabIndexの値を保持し<br/>画面復帰時にその値をtabIndexに戻してやれば良いのでは？</p>
+          <p>
+            （案）tabIndexの変化時にtabIndexの値を保持し<br />画面復帰時にその値をtabIndexに戻してやれば良いのでは？
+          </p>
           <ul>
             <li>値の変化をイベントとして取得できるか？</li>
             <li>値をどのように保存したら良いのか？</li>
@@ -71,7 +75,7 @@
           <h2>当プロジェクト内での共通スタイル(メモ)</h2>
           <p>まずは当モジュール内に記述し、先で共通化</p>
           <p>以下は対象クラス</p>
-<pre><code>
+          <pre><code>
 h6.card-header {
   padding: 5px 10px;
 }
@@ -124,20 +128,23 @@ export default {
   name: "ThemesBoot",
   created() {
     // tab位置がvuexのTABINDEXESに保存されていれば復元
-    if ( this.$store.state.TABINDEXES['ThemesBoot'] ) {
-      this.tabIndex = this.$store.state.TABINDEXES['ThemesBoot'];
+    if (this.$store.state.TABINDEXES["ThemesBoot"]) {
+      this.tabIndex = this.$store.state.TABINDEXES["ThemesBoot"];
     }
   },
   data() {
     return {
       tabIndex: 0,
-    }
+    };
   },
   watch: {
-    tabIndex: function() {
-      console.log("ThemesBoot tabIndex changed :"+this.tabIndex);
-      this.$store.commit('setTabIndex',['ThemesBoot',this.tabIndex]);
-      console.log("ThemesBoot tabIndex keeped to TABINDEXES[ThemesBoot] :"+this.$store.state.TABINDEXES['ThemesBoot']);
+    tabIndex: function () {
+      console.log("ThemesBoot tabIndex changed :" + this.tabIndex);
+      this.$store.commit("setTabIndex", ["ThemesBoot", this.tabIndex]);
+      console.log(
+        "ThemesBoot tabIndex keeped to TABINDEXES[ThemesBoot] :" +
+          this.$store.state.TABINDEXES["ThemesBoot"]
+      );
     },
   },
   props: {
@@ -165,7 +172,7 @@ div.card-text {
   padding: 0px 0px 0px 20px;
 }
 div.card-text > h2 {
-  font-size: 1.0rem;
+  font-size: 1rem;
 }
 div.card-text > code {
   padding: 0px, 0px;

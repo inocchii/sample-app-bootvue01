@@ -31,10 +31,11 @@
       <div class="card-body">
         <div class="card-text">
           <h2>storeにsqliteファイルを読み込んで使用するパターン</h2>
-          <p>sqliteの更新をサーバ側で行って同期する？
-            <br/>参考：https://github.com/skysign/public/tree/master/vue.js/boilerplate/vuejs-sqljs-boilerplate
+          <p>
+            sqliteの更新をサーバ側で行って同期する？
+            <br />参考：https://github.com/skysign/public/tree/master/vue.js/boilerplate/vuejs-sqljs-boilerplate
           </p>
-<pre><code>
+          <pre><code>
 import SQL from 'sql.js';
 
 export default {
@@ -61,16 +62,14 @@ export default {
     <div class="card w-100">
       <div class="card-header">Firebaseのメリットは？</div>
       <div class="card-body">
-        <div class="card-text">
-        </div>
+        <div class="card-text"></div>
       </div>
     </div>
     <!-- 記事 -->
     <div class="card w-100">
       <div class="card-header">VueでFirebaseを使う</div>
       <div class="card-body">
-        <div class="card-text">
-        </div>
+        <div class="card-text"></div>
       </div>
     </div>
   </div>
@@ -80,18 +79,15 @@ export default {
 export default {
   name: "ThemesData",
   data() {
-    return {
-    };
+    return {};
   },
   /*
   mounted: function(){
     var v = this;
   },
   */
-  computed: {
-  },
-  methods: {
-  },
+  computed: {},
+  methods: {},
   props: {
     msg: String,
   },

@@ -52,11 +52,6 @@ export default {
           icon: "far fa-sticky-note",
         },
         {
-          path: "/tab?menuid=Theme",
-          title: "Themes",
-          icon: "far fa-sticky-note",
-        },
-        {
           path: "/tab?menuid=Task",
           title: "Tasks",
           icon: "far fa-check-square",

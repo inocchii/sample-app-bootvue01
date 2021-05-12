@@ -2,7 +2,7 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <!-- L1-1 トップメニュー（タブ型） -->
-    <div class="p-1">
+    <div class="p-1" id="homeTab">
       <div class="">
         ★タブ BootstrapVue tab={{ this.tabIndex }} tabNm={{
           this.tabs[this.tabIndex]
@@ -11,22 +11,36 @@
       <!-- Nav tabs -->
       <b-tabs content-class="mt-3" v-model="tabIndex">
         <b-tab title="Home" :active="getActiveOrNot('Home')">
+          <p>TODO リスト</p>
           <ul id="list1-1" class="list-group list-group-flush">
             <li class="list-group-item d-flex justify-content-between">
-              Theme<small>subjectごとのtheme</small>
+              News by DB<small>Newsリストをデータベースで</small>
             </li>
             <li class="list-group-item d-flex justify-content-between">
-              Point<small>subject内での解決課題</small>
+              News by Ajax<small>NewsテーブルをAjaxで入れ替え</small>
             </li>
             <li class="list-group-item d-flex justify-content-between">
-              Task<small>subject内でのタスク</small>
-            </li>
-            <li class="list-group-item d-flex justify-content-between">
-              Link<small>subjectに関連するリンク</small>
+              Style<small>NewsをHomeにCard整形して表示</small>
             </li>
           </ul>
         </b-tab>
-        <!-- テーマタブ：コンポーネントThemesVueに記述 -->
+        <!-- Newsタブ：配列(news)に記述 → Databaseに → Ajaxで -->
+        <b-tab title="News" :active="getActiveOrNot('News')">
+          <p>以下は配列(News)から読み込んでいる</p>
+          <router-link
+            class="card text-white bg-dark"
+            role="button"
+            v-for="article in news"
+            :key="article.title"
+            :to="getPath(article.path, article.title, '&')"
+          >
+            <div class="card-body">
+              <h4 class="card-title">{{ article.title }}</h4>
+              <p class="card-text">{{ article.words }}</p>
+            </div>
+          </router-link>
+        </b-tab>
+        <!-- テーマタブ：配列(themes)に記述 -->
         <b-tab title="Theme" :active="getActiveOrNot('Theme')">
           <p>以下は配列(themes)から読み込んでいる</p>
           <router-link
@@ -45,22 +59,6 @@
         <!-- 課題タブ：コンポーネントPointsVueに記述 -->
         <b-tab title="Point" :active="getActiveOrNot('Point')">
           <PointsVue msg="Points in tab" />
-        </b-tab>
-        <!-- タスクタブ：配列から -->
-        <b-tab title="Task" :active="getActiveOrNot('Task')">
-          <p>以下は配列(tasks)から読み込んでいる</p>
-          <router-link
-            class="card text-white bg-dark"
-            role="button"
-            v-for="task in tasks"
-            :key="task.title"
-            :to="getPath(task.path, task.title)"
-          >
-            <div class="card-body">
-              <h4 class="card-title">{{ task.title }}</h4>
-              <p class="card-text">{{ task.words }}</p>
-            </div>
-          </router-link>
         </b-tab>
         <!-- メニュータブ：配列から -->
         <b-tab title="Menu" :active="getActiveOrNot('Menu')">
@@ -85,11 +83,11 @@
             <div class="card col-6" @click="setTabIndex(1)">
               タブ指定<br />setTabIndex(1)
             </div>
-            <div class="card col-6" @click="setTabIndexByNm('Task')">
-              タブ指定<br />setTabIndexNm('Task')
+            <div class="card col-6" @click="setTabIndexByNm('Theme')">
+              タブ指定<br />setTabIndexNm('Theme')
             </div>
-            <div class="card col-6" @click="setTabIndexByNm('Links')">
-              タブ指定<br />setTabIndexNm('Links')
+            <div class="card col-6" @click="setTabIndexByNm('Point')">
+              タブ指定<br />setTabIndexNm('Point')
             </div>
           </div>
         </b-tab>
@@ -100,24 +98,27 @@
       </b-tabs>
     </div>
     <!-- L1-2 リスト型（メインメニューのみで表示） -->
-    <div class="p-1" v-if="tabIndex === 0">
+    <div class="p-1" id="homeLinkList" v-if="tabIndex === 0">
       <div class="">★外部サイト</div>
       <OuterSites msg="outer links" />
     </div>
     <!-- L1-2 リスト型（メインメニューのみで表示） -->
     <div class="p-1" v-if="tabIndex === 0">
-      <div class="">★リンクリスト</div>
+      <div class="">★パターンリスト</div>
       <div id="list1-2" class="list-group">
-        <a href="#list1-2" class="list-group-item list-group-item-action active"
+        <a href="#homeTab" class="list-group-item list-group-item-action"
+          >タブへ</a
+        >
+        <a href="#homeTab" @click="setTabIndexByNm('Theme')" class="list-group-item list-group-item-action"
+          >タブ指定(Themeタブ)</a
+        >
+        <a href="#homeLinkList" class="list-group-item list-group-item-action"
           >リンクリスト</a
         >
-        <a href="#myTab" class="list-group-item list-group-item-action"
-          >タブ型</a
-        >
-        <a href="#myScroll" class="list-group-item list-group-item-action"
+        <a href="#homeScroll" class="list-group-item list-group-item-action"
           >カード（横スクロール）</a
         >
-        <a href="#myCards" class="list-group-item list-group-item-action"
+        <a href="#homeCards" class="list-group-item list-group-item-action"
           >カード各種</a
         >
       </div>
@@ -132,86 +133,104 @@ import LinksVue from "@/components/LinksVue.vue";
 import OuterSites from "@/components/OuterSites.vue";
 export default {
   name: "MenuForTest",
+  created() {
+    // tab位置がvuexのTABINDEXESに保存されていれば復元
+    if ( this.$store.state.TABINDEXES['MenuForTest'] ) {
+      this.tabIndex = this.$store.state.TABINDEXES['MenuForTest'];
+    }
+  },
+  mounted() {
+    console.log("mounted id="+this.$route.query.menuid);
+  },
   data() {
     return {
       // activeIndex: 0,
       // タブインデックス（タブの場所）
       tabIndex: 0,
       // タブ名の配列（タブ名指定に使用）
-      tabs: ["Home", "Theme", "Point", "Task", "Menu", "Links"],
-      // コンテンツ（タスク一覧）
+      tabs: ["Home", "Theme", "Point", "Menu", "Links"],
+      // コンテンツ（テーマ一覧）
+      news: [
+        {
+          path: "/newslist?catg=",
+          title: "全て",
+          words: "テーマ一覧",
+        },
+        {
+          path: "/newslist?catg=Data",
+          title: "Data",
+          words: "データ保持について",
+        },
+      ],
+      // コンテンツ（テーマ一覧）
       themes: [
         {
-          path: "/themes?id=Env",
+          path: "/themeslist?catg=",
+          title: "全て",
+          words: "テーマ一覧",
+        },
+        {
+          path: "/themeslist?catg=Env",
           title: "Environment",
           words: "Bootstrap＆Vueの開発環境",
         },
         {
-          path: "/themes?id=Basic",
+          path: "/themeslist?catg=Rule",
+          title: "Rules",
+          words: "プロジェクトルールの設定",
+        },
+        {
+          path: "/themeslist?catg=Vue",
+          title: "Vue",
+          words: "Bootstrap＆VueでのVue基本",
+        },
+        {
+          path: "/themeslist?catg=HTML",
           title: "Basic",
           words: "Bootstrap＆VueでのBasicなHTML5/CSS表現",
         },
         {
-          path: "/themes?id=Boot",
+          path: "/themeslist?catg=BootVue",
           title: "Boot",
           words: "Bootstrap＆VueでのBootstrap表現",
         },
         {
-          path: "/themes?id=JavaScript",
-          title: "JavaScript",
+          path: "/themeslist?catg=JavaScript",
+          title: "JavaScript＆jQuery",
           words: "Bootstrap＆VueでのJavaScript使用",
         },
         {
-          path: "/themes?id=jQuery",
-          title: "jQuery",
-          words: "Bootstrap＆VueでのjQuery使用について",
+          path: "/themeslist?catg=Data", 
+          title: "Data", 
+          words: "データ保持について" ,
         },
-        { path: "/themes?id=Data", title: "Data", words: "データ保持について" },
         {
-          path: "/themes?id=Ajax",
+          path: "/themeslist?catg=LocalStorage", 
+          title: "LocalStorage", 
+          words: "LocalStorageについて" ,
+        },
+        {
+          path: "/themeslist?catg=Database", 
+          title: "Database", 
+          words: "Databaseについて" ,
+        },
+        {
+          path: "/themeslist?catg=JSON",
+          title: "JSON",
+          words: "JSONの整理",
+        },
+        {
+          path: "/themeslist?catg=Ajax",
           title: "Ajax",
           words: "Bootstrap＆VueでのAjax使用について",
         },
         {
-          path: "/themes?id=Vue",
-          title: "Vue",
-          words: "Bootstrap＆VueでのVue基本",
-        },
-        {
-          path: "/themes?id=Router",
+          path: "/themeslist?catg=Router",
           title: "Router",
           words: "Bootstrap＆VueでのRouter使用",
         },
         {
-          path: "/themes?id=Vuex",
-          title: "Vuex",
-          words: "Bootstrap＆VueでのVuex使用",
-        },
-      ],
-      // コンテンツ（タスク一覧）
-      tasks: [
-        {
-          path: "/tasks/Basic",
-          title: "Basic",
-          words: "Bootstrap＆VueでのBasicなHTML5/CSS表現",
-        },
-        {
-          path: "/tasks/Boot",
-          title: "Boot",
-          words: "Bootstrap＆VueでのBootstrap表現",
-        },
-        {
-          path: "/tasks/Vue",
-          title: "Vue",
-          words: "Bootstrap＆VueでのVue基本",
-        },
-        {
-          path: "/tasks/Router",
-          title: "Router",
-          words: "Bootstrap＆VueでのRouter使用",
-        },
-        {
-          path: "/tasks/Vuex",
+          path: "/themeslist?catg=Vuex",
           title: "Vuex",
           words: "Bootstrap＆VueでのVuex使用",
         },
@@ -239,8 +258,12 @@ export default {
       ],
     };
   },
-  mounted() {
-    console.log("mounted");
+  watch: {
+    tabIndex: function() {
+      console.log("MenuForTest tabIndex changed :"+this.tabIndex);
+      this.$store.commit('setTabIndex',['MenuForTest',this.tabIndex]);
+      console.log("MenuForTest tabIndex keeped to TABINDEXES[MenuForTest] :"+this.$store.state.TABINDEXES['MenuForTest']);
+    },
   },
   computed: {
     getActiveOrNot: function () {

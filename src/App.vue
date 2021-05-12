@@ -43,4 +43,28 @@ export default {
     }
   }
 }
+div.card {
+  text-align: left;
+  margin: 0px 0px 5px;
+  padding: 0px 0px 5px;
+}
+div.card-body {
+  padding: 5px 10px;
+}
+div.card-text {
+  font-size: 0.8rem;
+  line-height: 1.2;
+  padding: 0px 0px 0px 20px;
+}
+div.card-text > h2 {
+  font-size: 1.0rem;
+}
+div.card-text > code {
+  padding: 0px, 0px;
+  text-align: left;
+}
+div.card-text > li > p {
+  margin-bottom: 0.5rem;
+}
+
 </style>

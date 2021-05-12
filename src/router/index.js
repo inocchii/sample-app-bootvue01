@@ -1,8 +1,9 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
-import Themes from "../views/Themes.vue";
-import Tasks from "../views/Tasks.vue";
+import NewsList from "../views/menuNewsList.vue";
+import ThemesDtl from "../views/menuThemesDtl.vue";
+import ThemesList from "../views/menuThemesList.vue";
 import Order from "../views/Order.vue";
 import Item from "../views/Item.vue";
 import Search from "../views/Search.vue";
@@ -13,15 +14,21 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/themes", // ?xxx=yyyで受けて見る
-    name: "Themes",
-    component: Themes,
+    path: "/newslist", // ?xxx=yyyで受けて見る
+    name: "NewsList",
+    component: NewsList,
     props: true, // propsを有効化
   },
   {
-    path: "/tasks/:id", // :id 動的セグメント
-    name: "Tasks",
-    component: Tasks,
+    path: "/themesdtl", // ?xxx=yyyで受けて見る
+    name: "ThemesDtl",
+    component: ThemesDtl,
+    props: true, // propsを有効化
+  },
+  {
+    path: "/themeslist", // ?xxx=yyyで受けて見る
+    name: "ThemesList",
+    component: ThemesList,
     props: true, // propsを有効化
   },
   {

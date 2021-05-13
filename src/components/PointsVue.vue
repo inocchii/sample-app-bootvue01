@@ -2,9 +2,10 @@
   <div class="Points">
     <div class="">課題一覧</div>
     <div class="list-group">
+      <input type="text" v-model="keyword" />
       <a
         class="list-group-item list-group-item-action flex-column align-items-start"
-        v-for="point in points"
+        v-for="point in filteredPoints"
         :key="point.title"
         :href="getAnchor(point.id)"
       >
@@ -21,7 +22,7 @@
     <div class="card-group">
       <div
         class="card"
-        v-for="point in points"
+        v-for="point in filteredPoints"
         :key="point.title"
         :id="getAnchorId(point.id)"
       >
@@ -46,6 +47,9 @@ export default {
     return {
       // activeIndex: 0,
       anchorKey: "point",
+      // 検索ワード
+      keyword: '',
+      // 課題
       points: [
         {
           id: "101",
@@ -197,6 +201,18 @@ export default {
         },
       ],
     };
+  },
+  computed: {
+    filteredPoints: function() {
+      let wPoints = [];
+      for(let i in this.points) {
+        let point = this.points[i];
+        if ( this.keyword === '' || point.title.indexOf(this.keyword) !== -1 || point.words.indexOf(this.keyword) !== -1 ) {
+          wPoints.push(point);
+        }
+      }
+      return wPoints;
+    },
   },
   methods: {
     getAnchor(argId) {

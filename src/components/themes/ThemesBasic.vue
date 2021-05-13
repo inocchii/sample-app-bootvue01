@@ -1,6 +1,28 @@
 <template>
   <div class="Themes">
     <div class="card w-100">
+      <div class="card-header">「戻る」について</div>
+      <div class="card-body">
+        <div class="card-text">
+          <h2>
+            戻るボタンを効率的に設定したい
+          </h2>
+          <p>方法</p>
+          <ol>
+            <li>上位画面から戻りのパスを渡す</li>
+            <li>ルータの戻る(ブラウザの戻る)を使用する</li>
+            <li>戻りパスを取り出す関数を作る</li>
+          </ol>
+          <h3>上位画面から戻りのパスを渡す</h3>
+          <p>デメリット：結構手間がかかる</p>
+          <h3>ルータの戻る(ブラウザの戻る)を使用する</h3>
+          <p>懸念事項：更新など大丈夫か？ 戻らない場合があるのでは？</p>
+          <code>this.$router.go(-1)</code>
+          <h3>戻りパスを取り出す関数を作る</h3>
+        </div>
+      </div>
+    </div>
+    <div class="card w-100">
       <div class="card-header">戻ったときにタブ位置を復元したい</div>
       <div class="card-body">
         <div class="card-text">
@@ -68,12 +90,14 @@
       <div class="card-body">
         <div class="card-text">
           <h2>どこに設定すると良いか？</h2>
-          <ul>
-            <li>ページ毎</li>
-            <li>全体共通</li>
-          </ul>
-          <h2>当プロジェクト内での共通スタイル(メモ)</h2>
-          <p>まずは当モジュール内に記述し、先で共通化</p>
+          <h3>コンポーネント</h3>
+          <p>コンポーネントの style </p>
+          <h3>ページ</h3>
+          <p>Viewの style </p>
+          <h3>全体共通</h3>
+          <p>App.vue の style </p>
+          <h2>全体共通スタイル(メモ)</h2>
+          <p>まずは当モジュール内に記述して確認、必要であれば全体に</p>
           <p>以下は対象クラス</p>
           <pre><code>
 h6.card-header {
@@ -124,7 +148,9 @@ div.card-text > li > p {
 </template>
 
 <script>
+//import menuThemesDtl_old from '../../views/menuThemesDtl_old.vue';
 export default {
+//  components: { menuThemesDtl_old },
   name: "ThemesBoot",
   created() {
     // tab位置がvuexのTABINDEXESに保存されていれば復元

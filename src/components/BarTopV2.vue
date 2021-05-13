@@ -2,10 +2,14 @@
   <!-- L1-1 ナビゲーションバー -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
     <div class="container">
-      <!-- ブランド -->
-      <router-link v-if="hasBackLabel" class="navbar-brand" :to="backPath">{{
+      <!-- 戻るボタン：backPath指定があれば優先採用 -->
+      <router-link v-if="backPath>''" class="navbar-brand" :to="backPath">{{
         backLabel
       }}</router-link>
+      <!-- 戻るボタン：backPath指定がなければ$router.go(-1)で一つ前に -->
+      <div v-else-if="backLabel>''" class="navbar-brand" @click="$router.go(-1)">{{
+        backLabel
+      }}</div>
       <!-- <a class="button navbar-brand" v-if="hasBackLabel" @click="goBack">{{ backLabel }}</a> -->
       <!-- <a class="navbar-brand" href="">Vue＆Boot</a> -->
       {{ title }}
@@ -19,12 +23,14 @@
 export default {
   name: "BarTopV2",
   computed: {
+    /*
     hasBackLabel() {
-      if (this.backLabel > "") {
+      if ( this.backLabel > "" && this.backPath > "" ) {
         return true;
       }
       return false;
     },
+    */
   },
   methods: {
     goBack() {

@@ -54,10 +54,21 @@ div.card-body {
 div.card-text {
   font-size: 0.8rem;
   line-height: 1.2;
-  padding: 0px 0px 0px 20px;
+  padding: 0px 0px 0px 10px;
 }
 div.card-text > h2 {
+  font-size: 1.1rem;
+}
+div.card-text > h3 {
   font-size: 1rem;
+}
+div.card-text > p {
+  font-size: 0.9rem;
+  margin: 0px 0px 5px;
+}
+div.card-text > pre {
+  /* line-height: 0.9rem; */
+  margin: 0px 0px 15px;
 }
 div.card-text > code {
   padding: 0px, 0px;

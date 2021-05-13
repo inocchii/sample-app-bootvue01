@@ -1,6 +1,18 @@
 <template>
   <div class="Themes">
     <div class="card w-100">
+      <div class="card-header">ライフサイクルフックを整理</div>
+      <div class="card-body"><div class="card-text"></div></div>
+    </div>
+    <div class="card w-100">
+      <div class="card-header">v-ifで複数条件を処理したいとき</div>
+      <div class="card-body"><div class="card-text"></div></div>
+    </div>
+    <div class="card w-100">
+      <div class="card-header">computedを使ってリストをフィルタする</div>
+      <div class="card-body"><div class="card-text"></div></div>
+    </div>
+    <div class="card w-100">
       <div class="card-header">computedに引数を渡す</div>
       <div class="card-body">
         <div class="card-text">
@@ -14,7 +26,11 @@
       </div>
     </div>
     <div class="card w-100">
-      <div class="card-header">変数の保持方法</div>
+      <div class="card-header">共通定義(mixin)の使用方法</div>
+      <div class="card-body"><div class="card-text"></div></div>
+    </div>
+    <div class="card w-100">
+      <div class="card-header">Vuexによる値の保持(変数の保持方法)</div>
       <div class="card-body">
         <div class="card-text">
           <p>Vueの変数保持方法を試す</p>
@@ -56,6 +72,14 @@
         </div>
       </div>
     </div>
+    <div class="card w-100">
+      <div class="card-header">VuexとLocalStorageの使い分け</div>
+      <div class="card-body"><div class="card-text"></div></div>
+    </div>
+    <div class="card w-100">
+      <div class="card-header">VuexとAjaxの組み合わせ</div>
+      <div class="card-body"><div class="card-text"></div></div>
+    </div>
   </div>
 </template>
 
@@ -72,10 +96,10 @@ export default {
     }
     // tab位置がmixin conf のTAB_INDEXに保管されていれば再現（mixinの値は書き換えが出来ておらず使えない）
     /*
-   if ( this.TAB_INDEX !== null ) {
-     this.tabIndex = this.TAB_INDEX;
-   }
-   */
+    if ( this.TAB_INDEX !== null ) {
+      this.tabIndex = this.TAB_INDEX;
+    }
+    */
     console.log(
       "ThemesVue tabIndex kept in this.$store.state.TABINDEXES :" +
         this.$store.state.TABINDEXES["ThemesVue"]

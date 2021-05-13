@@ -1,6 +1,9 @@
 <template>
   <div class="themes">
-    <BarTop :title="title" backPath="/" backLabel="戻る" />
+    <!--
+    <BarTop :title="title" :backPath="backPath" backLabel="戻る" />
+    -->
+    <BarTop :title="title" backLabel="戻る" />
     <!--
       Router経由での値の受け渡しを this.$route.query.xx で行っている。
       routerでの定義は path: "/themes" とし、routerに対して /themes?id=xx&title=yyでパラメータを受ける。
@@ -8,7 +11,7 @@
     <div>
       catg={{ this.$route.query.catg }} title={{ this.$route.query.title }}
     </div>
-    <div v-if="this.$route.query.catg === 'Env'">Vue＆Bootstrap開発環境</div>
+    <ThemesEnv v-if="getTemplate === 'Env'" />
     <ThemesRule v-else-if="getTemplate === 'Rule'" />
     <ThemesBasic v-else-if="getTemplate === 'Basic'" />
     <ThemesJS v-else-if="getTemplate === 'JS'" />
@@ -27,6 +30,7 @@
 <script>
 // @ is an alias to /src
 import BarTop from "@/components/BarTopV2.vue";
+import ThemesEnv from "@/components/themes/ThemesEnv.vue";
 import ThemesBasic from "@/components/themes/ThemesBasic.vue";
 import ThemesJS from "@/components/themes/ThemesJS.vue";
 import ThemesData from "@/components/themes/ThemesData.vue";
@@ -43,11 +47,14 @@ export default {
     return {
       title: "Themes",
       msg: "Welcome to my Vue&Boot Themes",
+      //backPath: this.$route.query.backpath,
     };
   },
   computed: {
     getTemplate() {
-      if (this.$route.query.catg == "HTML") {
+      if (this.$route.query.catg == "Env") {
+        return "Env";
+      } else if (this.$route.query.catg == "HTML") {
         return "Basic";
       } else if (this.$route.query.catg == "BootVue") {
         return "Basic";
@@ -74,6 +81,7 @@ export default {
   },
   components: {
     BarTop,
+    ThemesEnv,
     ThemesBasic,
     ThemesData,
     ThemesLocalStorage,

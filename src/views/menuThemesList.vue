@@ -54,7 +54,9 @@ export default {
   },
   methods: {
     getPath(argCatg, argTitle) {
-      return this.OUR_THEME_PATH + "?catg=" + argCatg + "&title=" + argTitle;
+      // OUR_THEME_PATH：mixins notes.jsに定義したグローバル定数
+      return this.OUR_THEME_PATH
+             + "?catg=" + argCatg + "&title=" + argTitle + "&backpath=" + this.$route.path;
     },
     getAnchor(argId) {
       return "#" + this.anchorKey + "-" + argId;

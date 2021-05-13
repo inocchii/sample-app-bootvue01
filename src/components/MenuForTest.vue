@@ -14,6 +14,15 @@
           <p>TODO リスト</p>
           <ul id="list1-1" class="list-group list-group-flush">
             <li class="list-group-item d-flex justify-content-between">
+              検索<small>computedを使った抽出</small>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              Ajax(Axios)<small>Ajax部分をコンパクトに</small>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              Ajax(PHP)<small>PHP側Ajaxプログラムパターン</small>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
               News by DB<small>Newsリストをデータベースで</small>
             </li>
             <li class="list-group-item d-flex justify-content-between">
@@ -24,25 +33,8 @@
             </li>
           </ul>
         </b-tab>
-        <!-- Newsタブ：配列(news)に記述 → Databaseに → Ajaxで -->
-        <b-tab title="News" :active="getActiveOrNot('News')">
-          <p>以下は配列(News)から読み込んでいる</p>
-          <router-link
-            class="card text-white bg-dark"
-            role="button"
-            v-for="article in news"
-            :key="article.title"
-            :to="getPath(article.path, article.title, '&')"
-          >
-            <div class="card-body">
-              <h4 class="card-title">{{ article.title }}</h4>
-              <p class="card-text">{{ article.words }}</p>
-            </div>
-          </router-link>
-        </b-tab>
         <!-- テーマタブ：配列(themes)に記述 -->
         <b-tab title="Theme" :active="getActiveOrNot('Theme')">
-          <p>以下は配列(themes)から読み込んでいる</p>
           <router-link
             class="card text-white bg-dark"
             role="button"
@@ -90,6 +82,22 @@
               タブ指定<br />setTabIndexNm('Point')
             </div>
           </div>
+        </b-tab>
+        <!-- Newsタブ：配列(news)に記述 → Databaseに → Ajaxで -->
+        <b-tab title="News" :active="getActiveOrNot('News')">
+          <p>以下は配列(News)から読み込んでいる</p>
+          <router-link
+            class="card text-white bg-dark"
+            role="button"
+            v-for="article in news"
+            :key="article.title"
+            :to="getPath(article.path, article.title, '&')"
+          >
+            <div class="card-body">
+              <h4 class="card-title">{{ article.title }}</h4>
+              <p class="card-text">{{ article.words }}</p>
+            </div>
+          </router-link>
         </b-tab>
         <!-- リンクタブ：コンポーネントから -->
         <b-tab title="Links" :active="getActiveOrNot('Links')">
@@ -151,20 +159,7 @@ export default {
       // タブインデックス（タブの場所）
       tabIndex: 0,
       // タブ名の配列（タブ名指定に使用）
-      tabs: ["Home", "Theme", "Point", "Menu", "Links"],
-      // コンテンツ（テーマ一覧）
-      news: [
-        {
-          path: "/newslist?catg=",
-          title: "全て",
-          words: "テーマ一覧",
-        },
-        {
-          path: "/newslist?catg=Data",
-          title: "Data",
-          words: "データ保持について",
-        },
-      ],
+      tabs: ["Home", "Theme", "Point", "Menu", "News", "Links"],
       // コンテンツ（テーマ一覧）
       themes: [
         {
@@ -188,14 +183,9 @@ export default {
           words: "Bootstrap＆VueでのVue基本",
         },
         {
-          path: "/themeslist?catg=HTML",
+          path: "/themeslist?catg=Basic",
           title: "Basic",
-          words: "Bootstrap＆VueでのBasicなHTML5/CSS表現",
-        },
-        {
-          path: "/themeslist?catg=BootVue",
-          title: "Boot",
-          words: "Bootstrap＆VueでのBootstrap表現",
+          words: "Bootstrap＆VueでのHTML5/CSS/Bootstrap",
         },
         {
           path: "/themeslist?catg=JavaScript",
@@ -228,12 +218,12 @@ export default {
           words: "Bootstrap＆VueでのAjax使用について",
         },
         {
-          path: "/themeslist?catg=Router",
+          path: "/themeslist?catg=Vue",
           title: "Router",
           words: "Bootstrap＆VueでのRouter使用",
         },
         {
-          path: "/themeslist?catg=Vuex",
+          path: "/themeslist?catg=Vue",
           title: "Vuex",
           words: "Bootstrap＆VueでのVuex使用",
         },
@@ -252,12 +242,25 @@ export default {
           icon: "far fa-check-square",
         },
         {
-          path: "/tab?menuid=Task",
-          title: "Tasks",
+          path: "/tab?menuid=News",
+          title: "News",
           icon: "far fa-check-square",
         },
         { path: "/tab?menuid=Menu", title: "Menus", icon: "fas fa-bars" },
         { path: "/tab?menuid=Links", title: "Links", icon: "fas fa-link" },
+      ],
+      // コンテンツ（テーマ一覧）
+      news: [
+        {
+          path: "/newslist?catg=",
+          title: "全て",
+          words: "テーマ一覧",
+        },
+        {
+          path: "/newslist?catg=Data",
+          title: "Data",
+          words: "データ保持について",
+        },
       ],
     };
   },
@@ -301,6 +304,8 @@ export default {
     },
     // tabIndexにタブ名をセットすると該当タブがactiveに変わる
     setTabIndexByNm(argTabNm) {
+      // 配列tabsに名前を設定しているが、
+      // 本来は実際のb-tabから名前とindexを取得したい
       this.tabIndex = this.tabs.indexOf(argTabNm);
     },
     getIconChecked(argBoo) {

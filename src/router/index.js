@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import NewsList from "../views/menuNewsList.vue";
+import ArticleDtl from "../views/menuArticleDtl.vue";
 import ThemesDtl from "../views/menuThemesDtl.vue";
 import ThemesList from "../views/menuThemesList.vue";
 import Order from "../views/Order.vue";
@@ -17,6 +18,12 @@ const routes = [
     path: "/newslist", // ?xxx=yyyで受けて見る
     name: "NewsList",
     component: NewsList,
+    props: true, // propsを有効化
+  },
+  {
+    path: "/articledtl", // ?xxx=yyyで受けて見る
+    name: "ArticleDtl",
+    component: ArticleDtl,
     props: true, // propsを有効化
   },
   {

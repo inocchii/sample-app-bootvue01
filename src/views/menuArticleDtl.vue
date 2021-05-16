@@ -12,6 +12,7 @@
       catg={{ this.$route.query.catg }} title={{ this.$route.query.title }}
     </div>
     <ArticleMiniMaster v-if="this.$route.query.catg === 'MiniMaster'" />
+    <ArticleFileVersion v-else-if="this.$route.query.catg === 'FileVersion'" />
     <div v-else>category not defined ({{ this.$route.query.catg }})</div>
   </div>
 </template>
@@ -20,6 +21,7 @@
 // @ is an alias to /src
 import BarTop from "@/components/BarTopV2.vue";
 import ArticleMiniMaster from "@/components/articles/ArticleMiniMaster.vue";
+import ArticleFileVersion from "@/components/articles/ArticleFileVersion.vue";
 
 export default {
   name: "Themes",
@@ -35,6 +37,7 @@ export default {
   components: {
     BarTop,
     ArticleMiniMaster,
+    ArticleFileVersion,
   },
 };
 </script>

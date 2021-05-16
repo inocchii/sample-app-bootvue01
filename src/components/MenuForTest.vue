@@ -15,8 +15,11 @@
           <ul id="list1-1" class="list-group list-group-flush">
             <li class="list-group-item d-flex justify-content-between">
               <router-link to="/articledtl?catg=MiniMaster">
-              少量マスタ<small>Ajax＆Vuex＆LocalStorageによる少量マスタ保持</small>
-              </router-link>
+              少量マスタ</router-link><small>Ajax＆Vuex＆LocalStorageによる少量マスタ保持</small>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <router-link to="/articledtl?catg=FileVersion">
+              ファイルのバージョン管理</router-link><small>ファイル入れ替えの仕組み</small>
             </li>
             <li class="list-group-item d-flex justify-content-between">
               検索<small>computedを使った抽出</small>

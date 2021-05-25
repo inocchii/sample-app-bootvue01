@@ -62,6 +62,9 @@ div.card-text > h2 {
 div.card-text > h3 {
   font-size: 1rem;
 }
+div.card-text > h4 {
+  font-size: 0.9rem;
+}
 div.card-text > p {
   font-size: 0.9rem;
   margin: 0px 0px 5px;
@@ -74,7 +77,12 @@ div.card-text > code {
   padding: 0px, 0px;
   text-align: left;
 }
-div.card-text > li > p {
-  margin-bottom: 0.5rem;
+div.card-text > ol > li > h4 {
+  font-size: 0.8rem;
+  margin-bottom: 0.3rem;
+}
+div.card-text > ol >li > p {
+  font-size: 0.8rem;
+  margin-bottom: 0.3rem;
 }
 </style>

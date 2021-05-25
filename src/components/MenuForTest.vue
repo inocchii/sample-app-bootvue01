@@ -6,38 +6,17 @@
       <div class="">
         ★タブ BootstrapVue tab={{ this.tabIndex }} tabNm={{
           this.tabs[this.tabIndex]
-        }}
+        }} / {{ this.$store.getters.getCount("order") }}
       </div>
       <!-- Nav tabs -->
       <b-tabs content-class="mt-3" v-model="tabIndex">
         <b-tab title="Home" :active="getActiveOrNot('Home')">
           <p>TODO リスト</p>
           <ul id="list1-1" class="list-group list-group-flush">
-            <li class="list-group-item d-flex justify-content-between">
-              <router-link to="/articledtl?catg=MiniMaster">
-              少量マスタ</router-link><small>Ajax＆Vuex＆LocalStorageによる少量マスタ保持</small>
-            </li>
-            <li class="list-group-item d-flex justify-content-between">
-              <router-link to="/articledtl?catg=FileVersion">
-              ファイルのバージョン管理</router-link><small>ファイル入れ替えの仕組み</small>
-            </li>
-            <li class="list-group-item d-flex justify-content-between">
-              検索<small>computedを使った抽出</small>
-            </li>
-            <li class="list-group-item d-flex justify-content-between">
-              Ajax(Axios)<small>Ajax部分をコンパクトに</small>
-            </li>
-            <li class="list-group-item d-flex justify-content-between">
-              Ajax(PHP)<small>PHP側Ajaxプログラムパターン</small>
-            </li>
-            <li class="list-group-item d-flex justify-content-between">
-              News by DB<small>Newsリストをデータベースで</small>
-            </li>
-            <li class="list-group-item d-flex justify-content-between">
-              News by Ajax<small>NewsテーブルをAjaxで入れ替え</small>
-            </li>
-            <li class="list-group-item d-flex justify-content-between">
-              Style<small>NewsをHomeにCard整形して表示</small>
+            <li v-for="todo in todos" :key="todo.title" class="list-group-item d-flex justify-content-between">
+              <router-link v-if="todo.path>''" :to="todo.path">{{ todo.title }}</router-link>
+              <div v-else>{{ todo.title }}</div>
+              <small>{{ todo.words }}</small>
             </li>
           </ul>
         </b-tab>
@@ -168,6 +147,79 @@ export default {
       tabIndex: 0,
       // タブ名の配列（タブ名指定に使用）
       tabs: ["Home", "Theme", "Point", "Menu", "News", "Links"],
+      // コンテンツ（TODO一覧）
+      todos: [
+        {
+          path: "/articledtl?catg=MiniSearch",
+          title: "検索と並べ替え",
+          words: "指定条件による抽出と並べ替え",
+        },
+        {
+          path: "",
+          title: "Topics & Stylish",
+          words: "NewsをHomeにCard整形して表示",
+        },
+        {
+          path: "",
+          title: "News from API",
+          words: "NewsはAPIでどこかから取ってくる",
+        },
+        {
+          path: "/articledtl?catg=PushSend",
+          title: "Push通知",
+          words: "ニフクラを使ったPush通知について整理",
+        },
+        {
+          path: "",
+          title: "ログイン",
+          words: "ログイン＆ユーザ管理について整理",
+        },
+        {
+          path: "",
+          title: "大量マスタ（DB）",
+          words: "DB型で格納にもトライしてみる",
+        },
+        {
+          path: "",
+          title: "大量マスタ（CSV）",
+          words: "CSV型で省パケット省メモリ",
+        },
+        {
+          path: "/articledtl?catg=BigSearch",
+          title: "大量マスタ（JSON）",
+          words: "普通に格納してみる",
+        },
+        {
+          path: "/articledtl?catg=MiniMaster",
+          title: "少量マスタ",
+          words: "Ajax＆Vuex＆LocalStorageによる少量マスタ保持",
+        },
+        {
+          path: "/articledtl?catg=FileVersion",
+          title: "ファイルのバージョン管理",
+          words: "ファイル入れ替えの仕組み",
+        },
+        {
+          path: "/themesdtl?catg=JavaScript",
+          title: "グローバル定数/変数/オブジェクトの持ち方",
+          words: "Vuex、Mixins等",
+        },
+        {
+          path: "",
+          title: "Ajax(Axios)",
+          words: "Ajax部分をコンパクトに",
+        },
+        {
+          path: "",
+          title: "Ajax(PHP)",
+          words: "PHP側Ajaxプログラムパターン",
+        },
+        {
+          path: "",
+          title: "News by DB",
+          words: "Newsリストをデータベースで",
+        },
+      ],
       // コンテンツ（テーマ一覧）
       themes: [
         {

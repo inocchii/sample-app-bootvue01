@@ -13,8 +13,16 @@
           :to="tab.path"
         >
           <i :class="tab.icon"></i>
+          <!--
           <span v-if="tab.badge > 0" class="badge badge-pill badge-danger">{{
             tab.badge
+          }}</span>
+          -->
+          <span v-if="getCounterObj(tab.name)>0" class="badge badge-pill badge-danger">{{
+            getCounterObj(tab.name)
+          }}</span>
+          <span v-else-if="getCounterVuex(tab.name)>0" class="badge badge-pill badge-danger">{{
+            getCounterVuex(tab.name)
           }}</span>
           <br />
           {{ tab.label }}
@@ -42,37 +50,80 @@ export default {
           path: "/",
           icon: "fas fa-home",
           label: "ホーム",
+          name: "home",
           badge: 0,
         },
         {
           path: "/order/scan",
           icon: "fas fa-edit",
           label: "発注",
-          badge: 10,
+          name: "order",
+          badge: 0,
         },
         {
           path: "/item/list",
           icon: "fas fa-database",
           label: "商品",
-          badge: 1,
+          name: "item",
+          badge: 0,
         },
         {
           path: "/search",
           icon: "fas fa-search",
           label: "検索",
+          name: "search",
           badge: 0,
         },
         {
           path: "/others",
           icon: "fas fa-ellipsis-h",
           label: "その他",
-          badge: 3,
+          name: "else",
+          badge: 0,
         },
       ],
     };
   },
   methods: {},
-  computed: {},
+  /*
+  filters: {
+    updateCounter: function(argNm) {
+      console.log("updateCounter:"+argNm);
+      return this.getCountOrder;
+    },
+  },
+  */
+  computed: {
+    getCounterObj: function() {
+      return function(argNm) {
+        //console.log("getCounterObj:"+argNm+"("+window.objCounter.get(argNm)+")");
+        return window.objCounter.get(argNm);
+      }
+    },
+    getCounterVuex: function() {
+      return function(argNm) {
+        //console.log("getCounterVuex:"+argNm+"("+this.$store.getters.getCount(argNm)+")");
+        return this.$store.getters.getCount(argNm);
+      }
+    },
+  },
+  mounted: function () {
+    // objCounterにカウンタをセット
+    window.objCounter.set('home',0);
+    window.objCounter.set('order',0);
+    window.objCounter.set('item',0);
+    window.objCounter.set('search',0);
+    window.objCounter.set('else',0);
+    // storeにカウンタをセット
+    this.$store.dispatch('addCount',['home',0]);
+    this.$store.dispatch('addCount',['order',0]);
+    this.$store.dispatch('addCount',['item',0]);
+    this.$store.dispatch('addCount',['search',0]);
+    this.$store.dispatch('addCount',['else',0]);
+    console.log("tabs[0].label:" + this.tabs[0].label + " .badge:" + this.tabs[0].badge);
+    console.log("tabs[1].label:" + this.tabs[1].label + " .badge:" + this.tabs[1].badge);
+    console.log("tabs[2].label:" + this.tabs[2].label + " .badge:" + this.tabs[2].badge);
+  },
   components: {},
   props: [],
 };

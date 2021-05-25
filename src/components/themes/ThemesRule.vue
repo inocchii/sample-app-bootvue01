@@ -16,6 +16,32 @@ src
 --store
 --views
 </code></pre>
+          <h2>当面のフォルダ構成</h2>
+          <p>
+            mixinsフォルダは共通定数、共通関数用<br />
+            storeフォルダは共通変数、データ格納用<br />
+            メニューを細分化する場合はmenusフォルダ等で
+            globalsフォルダを追加。グローバルオブジェクト用<br />
+          </p>
+          <pre><code>
+src
+-- assets
+-- components
+-- ※globals ※追加
+-- ※menus ※追加（メニューを細分化して管理する場合）
+---- funcA
+---- funcB
+-- ※mixins ※追加
+---- conf.js ※設定情報
+---- consts.js ※グローバル定数
+---- common.js ※共通関数
+-- router
+-- store
+---- index.js ※親
+---- vars.js ※グローバル変数
+---- entities.js ※データ系（マスタやトランザクションデータ）
+-- views
+</code></pre>
           <h2>フォルダ構成の例</h2>
           <code
             >https://ichi.pro/vue-js-purojyekuto-o-koseisuru-hoho-250991675966892</code
@@ -62,7 +88,17 @@ src
     </div>
     <div class="card w-100">
       <div class="card-header">ストア</div>
-      <div class="card-body"><div class="card-text"></div></div>
+      <div class="card-body">
+        <div class="card-text">
+          <ol>
+            <li>値保持にはVuexを使用する</li>
+            <li>store(値保持エリア)はstore/index.jsを親とする</li>
+            <li>必要であればstoreを子に分割(変数用、マスタ用など)</li>
+            <li>storeの更新は「action→mutation」で行う</li>
+            <li>storeからの取り出しは基本getterを用いる</li>
+          </ol>
+        </div>
+      </div>
     </div>
   </div>
 </template>

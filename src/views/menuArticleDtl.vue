@@ -11,7 +11,10 @@
     <div>
       catg={{ this.$route.query.catg }} title={{ this.$route.query.title }}
     </div>
-    <ArticleMiniMaster v-if="this.$route.query.catg === 'MiniMaster'" />
+    <ArticlePushSend v-if="this.$route.query.catg === 'PushSend'" />
+    <ArticleBigSearch v-if="this.$route.query.catg === 'BigSearch'" />
+    <ArticleMiniSearch v-if="this.$route.query.catg === 'MiniSearch'" />
+    <ArticleMiniMaster v-else-if="this.$route.query.catg === 'MiniMaster'" />
     <ArticleFileVersion v-else-if="this.$route.query.catg === 'FileVersion'" />
     <div v-else>category not defined ({{ this.$route.query.catg }})</div>
   </div>
@@ -20,6 +23,9 @@
 <script>
 // @ is an alias to /src
 import BarTop from "@/components/BarTopV2.vue";
+import ArticlePushSend from "@/components/articles/ArticlePushSend.vue";
+import ArticleBigSearch from "@/components/articles/ArticleBigSearch.vue";
+import ArticleMiniSearch from "@/components/articles/ArticleMiniSearch.vue";
 import ArticleMiniMaster from "@/components/articles/ArticleMiniMaster.vue";
 import ArticleFileVersion from "@/components/articles/ArticleFileVersion.vue";
 
@@ -36,6 +42,9 @@ export default {
   },
   components: {
     BarTop,
+    ArticlePushSend,
+    ArticleBigSearch,
+    ArticleMiniSearch,
     ArticleMiniMaster,
     ArticleFileVersion,
   },

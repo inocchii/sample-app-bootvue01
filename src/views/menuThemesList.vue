@@ -19,7 +19,7 @@
           <router-link
             class="card text-white bg-dark"
             role="button"
-            :to="getPath(theme.catg, theme.title)"
+            :to="getPath(theme.catg, theme.title, theme.path)"
           >
             <h6 class="card-header text-left">
               <i :class="getIconChecked(theme.checked)"></i>&nbsp;{{
@@ -53,10 +53,16 @@ export default {
     };
   },
   methods: {
-    getPath(argCatg, argTitle) {
+    getPath(argCatg, argTitle, argPath) {
       // OUR_THEME_PATH：mixins notes.jsに定義したグローバル定数
-      return this.OUR_THEME_PATH
-             + "?catg=" + argCatg + "&title=" + argTitle + "&backpath=" + this.$route.path;
+      let path = this.OUR_THEME_PATH;
+      if ( argPath !== "" ) {
+        path = argPath + "&title=" + argTitle;
+      } else {
+        path = path + "?catg=" + argCatg + "&title=" + argTitle;
+      }
+      path = path + "&backpath=" + this.$route.path;
+      return path;
     },
     getAnchor(argId) {
       return "#" + this.anchorKey + "-" + argId;

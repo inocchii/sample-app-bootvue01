@@ -2,7 +2,53 @@
   <div class="Themes">
     <div class="card w-100">
       <div class="card-header">ライフサイクルフックを整理</div>
-      <div class="card-body"><div class="card-text"></div></div>
+      <div class="card-body">
+        <div class="card-text">
+          <h2></h2>
+          <table class="table table-striped table-bordered"> 
+            <thead>
+              <tr>
+                <th scope="col">ライフサイクル</th>
+                <th scope="col">タイミング</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">beforeCreate</th>
+                <td>インスタンスが生成されデータが初期化される前</td>
+              </tr>
+              <tr>
+                <th scope="row">created</th>
+                <td>データが初期化された後</td>
+              </tr>
+              <tr>
+                <th scope="row">beforeMount</th>
+                <td>インスタンスがDOM要素にマウントされる前</td>
+              </tr>
+              <tr>
+                <th scope="row">mounted</th>
+                <td>DOM要素にマウントされた後</td>
+              </tr>
+              <tr>
+                <th scope="row">beforeUpdate</th>
+                <td>データが更新されてDOM要素に適用される前</td>
+              </tr>
+              <tr>
+                <th scope="row">updated</th>
+                <td>データが更新されてDOM要素に適用された後</td>
+              </tr>
+              <tr>
+                <th scope="row">beforeDestroy</th>
+                <td>インスタンスが破棄される前</td>
+              </tr>
+              <tr>
+                <th scope="row">destroyed</th>
+                <td>インスタンスが破棄された後</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
     <div class="card w-100">
       <div class="card-header">v-ifで複数条件を処理したいとき</div>
@@ -10,7 +56,11 @@
     </div>
     <div class="card w-100">
       <div class="card-header">computedを使ってリストをフィルタする</div>
-      <div class="card-body"><div class="card-text"></div></div>
+      <div class="card-body">
+        <div class="card-text">
+          <h2>条件指定によるフィルタリングにcomputedを使う</h2>
+        </div>
+      </div>
     </div>
     <div class="card w-100">
       <div class="card-header">computedに引数を渡す</div>
@@ -26,8 +76,51 @@
       </div>
     </div>
     <div class="card w-100">
+      <div class="card-header">配列の更新がリアクティブにならない</div>
+      <div class="card-body">
+        <div class="card-text">
+          <h2>Vueでは変更を検知できる更新メソッドが限定されている</h2>
+          <p>対処方法</p>
+          <h3>1.検知対象のメソッドで更新を行う</h3>
+          <code>push() pop() shift() unshift() splice() sort() reverse()</code>
+          <h3>2.変更後、配列に対し.splice()を実施することで検知できる</h3>
+          <code>vuexの場合、mutationで更新後に配列に.splice()を実施する</code>
+          <h3>3.this.$set()を使う</h3>
+          <h3>4.オブジェクトはリアクティブに更新される</h3>
+        </div>
+      </div>
+    </div>
+    <div class="card w-100">
+      <div class="card-header">フィルタを使って表示項目を編集する</div>
+      <div class="card-body">
+        <div class="card-text">
+          <p>参考サイト：<a href="https://dev83.com/vue-filter/">Vue.jsでフィルタを使ってデータを加工する方法を解説</a></p>
+          <p>確認事項</p>
+          <code>filter内で算出プロパティやメソッドやVuexストアは使えない？</code>
+        </div>
+      </div>
+    </div>
+    <div class="card w-100">
       <div class="card-header">共通定義(mixin)の使用方法</div>
       <div class="card-body"><div class="card-text"></div></div>
+    </div>
+    <div class="card w-100">
+      <div class="card-header">Vuexとは</div>
+      <div class="card-body">
+        <div class="card-text">
+          <h2>Vuexの特徴(グローバルオブジェとの違い)</h2>
+          <ol>
+            <li>コンポーネントを跨いで値・状態を保持できる</li>
+            <li>リアクティブである</li>
+            <li>値の状態を追跡するために「ミューテーションをコミット」</li>
+          </ol>
+          <h2>どんな時に使う</h2>
+          <p>コンポーネントを跨いで値の変化をリアクティブに反映したい時</p>
+          <h2>グローバルオブジェクトとの使い分け</h2>
+          <p>リアクティブである必要がある → Vuex</p>
+          <p>リアクティブである必要がない → グローバルオブジェクト</p>
+        </div>
+      </div>
     </div>
     <div class="card w-100">
       <div class="card-header">Vuexによる値の保持(変数の保持方法)</div>
@@ -73,12 +166,24 @@
       </div>
     </div>
     <div class="card w-100">
-      <div class="card-header">VuexとLocalStorageの使い分け</div>
+      <div class="card-header">VuexとLocalStorageの組み合わせ</div>
       <div class="card-body"><div class="card-text"></div></div>
     </div>
     <div class="card w-100">
       <div class="card-header">VuexとAjaxの組み合わせ</div>
-      <div class="card-body"><div class="card-text"></div></div>
+      <div class="card-body">
+        <div class="card-text">
+          <h2>パターン</h2>
+          <ol>
+            <li>actionsの中でAjaxを行う</li>
+            <li>Ajax自体はコンポーネント側で行う</li>
+          </ol>
+          <h2>注意点</h2>
+          <ol>
+            <li>同期的に行う必要がある</li>
+          </ol>
+        </div>
+      </div>
     </div>
   </div>
 </template>

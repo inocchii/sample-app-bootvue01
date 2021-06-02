@@ -1,12 +1,9 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
     <!-- L1-1 トップメニュー（タブ型） -->
     <div class="p-1" id="homeTab">
-      <div class="">
-        ★タブ BootstrapVue tab={{ this.tabIndex }} tabNm={{
-          this.tabs[this.tabIndex]
-        }} / {{ this.$store.getters.getCount("order") }}
+      <div class="small">
+        {{ msg }} tab={{ this.tabIndex }} tabNm={{ this.tabs[this.tabIndex] }}
       </div>
       <!-- Nav tabs -->
       <b-tabs content-class="mt-3" v-model="tabIndex">
@@ -71,6 +68,7 @@
           </div>
         </b-tab>
         <!-- Newsタブ：配列(news)に記述 → Databaseに → Ajaxで -->
+        <!--
         <b-tab title="News" :active="getActiveOrNot('News')">
           <p>以下は配列(News)から読み込んでいる</p>
           <router-link
@@ -86,6 +84,7 @@
             </div>
           </router-link>
         </b-tab>
+        -->
         <!-- リンクタブ：コンポーネントから -->
         <b-tab title="Links" :active="getActiveOrNot('Links')">
           <LinksVue msg="links in tab" />
@@ -150,58 +149,88 @@ export default {
       // コンテンツ（TODO一覧）
       todos: [
         {
-          path: "/articledtl?catg=MiniSearch",
-          title: "検索と並べ替え",
-          words: "指定条件による抽出と並べ替え",
+          path: "/articledtl?catg=Payment",
+          title: "決済サービス検討",
+          words: "決済サービスとのAPI連携",
         },
         {
           path: "",
-          title: "Topics & Stylish",
-          words: "NewsをHomeにCard整形して表示",
+          title: "画像保持",
+          words: "オフライン対応(ファイルプラグイン)",
         },
         {
           path: "",
-          title: "News from API",
-          words: "NewsはAPIでどこかから取ってくる",
+          title: "Card Style",
+          words: "NewsをCard整形",
+        },
+        {
+          path: "",
+          title: "Instagram",
+          words: "Insta記事をAPIで取ってくる",
+        },
+        {
+          path: "/articledtl?catg=Wordpress",
+          title: "Wordpress",
+          words: "記事をAPIで取ってくる",
+        },
+        {
+          path: "",
+          title: "実機でのデバッグ",
+          words: "スマホで動作検証を行う",
+        },
+        {
+          path: "/articledtl?catg=Cordova",
+          title: "Cordovaプラグイン",
+          words: "スマホネイティブ機能",
+        },
+        {
+          path: "/articledtl?catg=Bluetooth",
+          title: "Bluetoothで周辺機器",
+          words: "Web Bluetooth API",
         },
         {
           path: "/articledtl?catg=PushSend",
           title: "Push通知",
-          words: "ニフクラを使ったPush通知について整理",
+          words: "ニフクラを使ったPush通知",
         },
         {
-          path: "",
+          path: "/articledtl?catg=Login",
           title: "ログイン",
           words: "ログイン＆ユーザ管理について整理",
         },
         {
-          path: "",
-          title: "大量マスタ（DB）",
-          words: "DB型で格納にもトライしてみる",
+          path: "/articledtl?catg=MiniSearch",
+          title: "検索と並べ替え",
+          words: "条件抽出と並べ替え",
+        },
+        {
+          path: "/themesdtl?catg=Database",
+          title: "データベース",
+          words: "sqlite 使用について整理",
         },
         {
           path: "",
           title: "大量マスタ（CSV）",
-          words: "CSV型で省パケット省メモリ",
+          words: "省パケット省メモリ",
         },
         {
           path: "/articledtl?catg=BigSearch",
           title: "大量マスタ（JSON）",
-          words: "普通に格納してみる",
+          words: "限界の確認",
         },
         {
           path: "/articledtl?catg=MiniMaster",
           title: "少量マスタ",
-          words: "Ajax＆Vuex＆LocalStorageによる少量マスタ保持",
+          words: "Ajax＆Vuex＆LocalStorage",
         },
         {
           path: "/articledtl?catg=FileVersion",
-          title: "ファイルのバージョン管理",
-          words: "ファイル入れ替えの仕組み",
+          title: "情報のバージョン管理",
+          words: "入替の仕組み",
         },
         {
           path: "/themesdtl?catg=JavaScript",
-          title: "グローバル定数/変数/オブジェクトの持ち方",
+          title: "グローバル定数/変数",
           words: "Vuex、Mixins等",
         },
         {
@@ -210,14 +239,14 @@ export default {
           words: "Ajax部分をコンパクトに",
         },
         {
-          path: "",
-          title: "Ajax(PHP)",
-          words: "PHP側Ajaxプログラムパターン",
+          path: "/themesdtl?catg=Ajax",
+          title: "Ajax",
+          words: "Ajaxの試験",
         },
         {
           path: "",
-          title: "News by DB",
-          words: "Newsリストをデータベースで",
+          title: "Ajax(PHP)",
+          words: "PHP側Ajaxプログラムパターン",
         },
       ],
       // コンテンツ（テーマ一覧）
@@ -310,6 +339,7 @@ export default {
         { path: "/tab?menuid=Links", title: "Links", icon: "fas fa-link" },
       ],
       // コンテンツ（テーマ一覧）
+      /*
       news: [
         {
           path: "/newslist?catg=",
@@ -322,6 +352,7 @@ export default {
           words: "データ保持について",
         },
       ],
+      */
     };
   },
   watch: {

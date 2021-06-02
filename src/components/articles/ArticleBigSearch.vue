@@ -131,7 +131,7 @@
 
 <script>
 export default {
-  name: "ArticleMiniSearch",
+  name: "ArticleBigSearch",
   mounted: function() {
     // 商品マスタをストアから取得
     console.log("mounted itemList from store:this.FILE_NM_ITEM_LIST:"+this.FILE_NM_ITEM_LIST);

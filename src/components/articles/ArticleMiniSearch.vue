@@ -14,14 +14,14 @@
           </ul>
           <h2>リストの持ち方</h2>
           <ul>
-            <li>Vuexの配列</li>
+            <li>ストア(Vuex)の配列</li>
             <li>LocalStorageではJSON</li>
             <li>サーバ上ではテーブルに</li>
           </ul>
           <h2>初期構築ロジック</h2>
           <ol>
             <li>ストアから取得(getters)</li>
-            <li>ストアに存在しない場合はlocalStorageから(restore)</li>
+            <li>ストアに存在しない場合はLocalStorageから(restore)</li>
             <li>LocalStorageに存在しない場合はAjaxから</li>
             <li>AjaxでサーバからJSON形式で取得(get&set)</li>
             <li>LocalStorageに保存(save)</li>
@@ -36,12 +36,13 @@
         <div class="card-text">
           <h2>リスト</h2>
           <ul>
-            <li>Vuexの配列</li>
+            <li>ストア(Vuex)の配列</li>
             <li>LocalStorageではJSON</li>
             <li>サーバ上ではテーブルに</li>
           </ul>
           <h2>初期構築ロジック</h2>
           <ol>
+            <li>ストアから取得(getters)</li>
             <li>ストアに存在しない場合はLocalStorageから</li>
             <li>LocalStorageに存在しない場合はAjaxから</li>
             <li>AjaxでサーバからJSON形式で取得</li>
@@ -49,21 +50,22 @@
             <li>LocalStorageからストアに(入れ替え)</li>
           </ol>
           <h2>ストアに存在すれば使用</h2>
-          <span>ストア リスト名：mixins consts FILE_NM_TORI_LIST:{{ this.FILE_NM_TORI_LIST }}</span><br/>
-          <span>ストア 指定：this.$store.getters['entities/getList'](this.FILE_NM_TORI_LIST)</span><br/>
+          <code>ストア リスト名：(mixins consts) FILE_NM_TORI_LIST:{{ this.FILE_NM_TORI_LIST }}</code><br/>
+          <code>ストア 取得：this.$store.getters['entities/getList'](this.FILE_NM_TORI_LIST)</code><br/>
           <h2>検索条件など(リストレンダリング)</h2>
-          <span>取引先コード<input type='text' v-model='tori_cd' /></span>
-          <span>取引先名<input type='text' v-model='tori_nm' /></span><br/>
-          <!-- URL選択 -->
-          <span>並び順</span>
-          <select v-model="sort_key">
-            <option value="">取引先コード</option>
-            <option value="r_tori_cd">取引先コード(逆順)</option>
-            <option value="tori_nm">取引先名</option>
-            <option value="edi_cd">ＥＤＩコード</option>
-            <option value="tel_no">電話番号</option>
-          </select>
-          <span>取引先コード：{{tori_cd}} 取引先名：{{tori_nm}} 並び順：{{sort_key}}</span><br/>
+          <div class="input">
+            取引先コード<input type='text' v-model='tori_cd' style='width: 80px;'/>
+            取引先名<input type='text' v-model='tori_nm' style='width: 100px;'/>
+            並び順
+            <select v-model="sort_key" style='width: 100px;'>
+              <option value="">取引先コード</option>
+              <option value="r_tori_cd">取引先コード(逆順)</option>
+              <option value="tori_nm">取引先名</option>
+              <option value="edi_cd">ＥＤＩコード</option>
+              <option value="tel_no">電話番号</option>
+            </select><br/>
+            取引先コード：{{tori_cd}} 取引先名：{{tori_nm}} 並び順{{sort_key}}
+          </div>
           <template v-if="toriList">
             <div class="table-wrapper-scroll-y my-custom-scrollbar">
               <table class="table table-striped table-bordered table-sm"> 
@@ -84,20 +86,28 @@
             </div>
           </template>
           <!-- -->
-          <h2>ストアをクリア</h2>
-          <span>Vuexのストアをクリア：this.$store.dispatch('entities/clear',this.FILE_NM_TORI_LIST);</span><br/>
-          <button class="button" @click="clearToriList">ストアをクリア</button><br/>
+          <h2>Vuexのストアをクリア</h2>
+          <div class="input">
+            <button class="button" @click="clearToriList">ストアをクリア</button>
+          </div>
+          <code>$store.dispatch('entities/clear',this.FILE_NM_TORI_LIST);</code><br/>
           <h2>ローカルストレッジからのリストア</h2>
-          <span>取引先マスタ リスト名:mixins consts FILE_NM_TORI_LIST:{{ this.FILE_NM_TORI_LIST }}</span><br/>
-          <button class="button" @click="restoreToriList">LocalStorageからリストア</button><br/>
+          <div class="input">
+            <button class="button" @click="restoreToriList">LocalStorageからリストア</button>
+          </div>
+          <code>localStorage-Key:(mixins consts) FILE_NM_TORI_LIST:{{ this.FILE_NM_TORI_LIST }}</code>
           <!-- -->
           <h2>Ajaxでサーバから取得</h2>
-          <span>AjaxURL:mixins consts AJAX_SERVER:{{ this.AJAX_SERVER }}?{{ this.AJAX_GET_TORI_LIST }}</span><br/>
-          <button class="button" @click="changeToriList">Ajaxでサーバから取得</button><br/>
+          <div class="input">
+            <button class="button" @click="changeToriList">Ajaxでサーバから取得</button>
+          </div>
+          <code>URL:(mixins consts) AJAX_SERVER:{{ this.AJAX_SERVER }}?{{ this.AJAX_GET_TORI_LIST }}</code>
           <!-- -->
           <h2>LocalStorageに格納</h2>
-          <span>取引先マスタ localStorage-Key:mixins consts FILE_NM_TORI_LIST:{{ this.FILE_NM_TORI_LIST }}</span><br/>
-          <button class="button" @click="saveToriList">LocalStorageに格納</button><br/>
+          <div class="input">
+            <button class="button" @click="saveToriList">LocalStorageに格納</button>
+          </div>
+          <code>localStorage-Key:(mixins consts) FILE_NM_TORI_LIST:{{ this.FILE_NM_TORI_LIST }}</code>
         </div>
       </div>
     </div>

@@ -58,24 +58,53 @@ div.card-text {
 }
 div.card-text > h2 {
   font-size: 1.1rem;
+  margin: 10px 0px 5px;
 }
 div.card-text > h3 {
   font-size: 1rem;
+  margin: 4px 0px 4px 10px;
 }
 div.card-text > h4 {
   font-size: 0.9rem;
+  margin: 3px 0px 3px 15px;
 }
 div.card-text > p {
   font-size: 0.9rem;
-  margin: 0px 0px 5px;
+  margin: 3px 0px 3px 20px;
+}
+div.card-text > small {
+  font-size: 0.8rem;
+  margin: 3px 0px 3px 20px;
+}
+div.card-text > div.index {
+  margin: 3px 0px 3px 20px;
+}
+div.card-text > div.summary {
+  margin: 3px 0px 3px 30px;
+}
+div.card-text > div.note {
+  margin: 3px 0px 3px 30px;
+}
+div.card-text > div.mention {
+  margin: 3px 0px 3px 30px;
+  padding: 2px 4px;
+  background-color:palevioletred;
+}
+div.card-text > div.input {
+  margin: 3px 0px 3px 30px;
+  line-height: 1.2rem;
 }
 div.card-text > pre {
   /* line-height: 0.9rem; */
-  margin: 0px 0px 15px;
+  margin: 3px 0px 3px;
 }
 div.card-text > code {
+  margin: 3px 0px 3px 30px;
   padding: 0px, 0px;
   text-align: left;
+}
+div.card-text > ol,ul {
+  margin: 3px 0px 3px;
 }
 div.card-text > ol > li > h4 {
   font-size: 0.8rem;

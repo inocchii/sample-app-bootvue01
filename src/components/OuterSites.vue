@@ -23,7 +23,12 @@ export default {
       // activeIndex: 0,
       baseUrl: "/outer",
       links: [
-        { title: "万年筆", url: "https://kobe-nagasawa.co.jp/fountainpen/" },
+        { title: "ニフクラ認証機能", url: "https://nifcloud-mbaas.github.io/MonacaUserDemoApp2/" },
+        { title: "ニフクラドキュメント", url: "https://mbaas.nifcloud.com/ebook.html" },
+        { title: "バナナ", url: "https://next716.com/" },
+        { title: "Wordpress", url: "https://shambeel.com/" },
+        { title: "Twitter", url: "https://twitter.com/home?lang=ja" },
+        { title: "Instagram", url: "https://www.instagram.com/?hl=ja" },
       ],
     };
   },

@@ -10,6 +10,8 @@ const entities = {
     namespaced: true,
     //mixins:[conf,consts,common],
     state: {
+        // ユーザ情報
+        user_info: null,
         // ファイルバージョンリスト
         file_version_list: null,
         // 分類リスト
@@ -26,13 +28,20 @@ const entities = {
         log_pool: [],
     },
     getters: {
-        // 汎用
+        // 汎用オブジェクト取得
+        getInfo(state) {
+            return function(argNm) {
+                console.log("entities getters getInfo argNm:"+argNm);
+                return state[argNm];
+            }
+        },
+        // 汎用リスト取得
         getList(state) {
             return function(argNm) {
                 console.log("entities getters getList argNm:"+argNm);
                 return state[argNm];
             }
-        }
+        },
     },
     mutations: {
         // 汎用リストクリア
@@ -50,11 +59,16 @@ const entities = {
             console.log("entities setBunList list=" + argList);
             state.bun_list = argList;
         },
+        // 汎用オブジェクト更新
+        setInfo(state, argArr) {
+            console.log("entities setInfo name="+argArr[0]+" info="+argArr[1]);
+            state[argArr[0]] = argArr[1];
+        },
         // 汎用リスト更新
         setList(state, argArr) {
             console.log("entities setList name="+argArr[0]+" list="+argArr[1]);
             state[argArr[0]] = argArr[1];
-        }
+        },
     },
     actions: {
         // 汎用リストクリア
@@ -67,6 +81,40 @@ const entities = {
             console.log("actions clearBunList start");
             context.commit('setBunList',[]);
             return true;
+        },
+        // 汎用オブジェクト更新
+        setInfo(context,argArr) {
+            console.log("actions setInfo name="+argArr[0]);
+            context.commit('setInfo',argArr);
+        },
+        // 汎用オブジェクト更新(Storageから取得してStoreを更新)
+        setInfoFromStorage(context,argNm) {
+            console.log("actions setInfoFromStorage name="+argNm);
+            // Storageからの取得
+            console.log("actions setInfoFromStorage");
+            let buf = localStorage.getItem(argNm);
+            console.log("actions setInfoFromStorage from Storage buf="+buf);
+            if ( buf ) {
+                let obj = JSON.parse(buf);
+                // ストアへ
+                console.log("actions setInfoFromStorage to Store");
+                context.commit('setInfo',[argNm,obj]);
+            } else {
+                console.log("actions setInfoFromStorage error!!! storage is empty");
+                alert("setInfoFromStorageに失敗しました");        
+            }
+        },
+        // 汎用オブジェクト更新(StorageとStoreを更新)
+        setInfoAndStorage(context,argArr) {
+            console.log("actions setInfoAndStorage name="+argArr[0]);
+            // Storageへの書き込み
+            console.log("actions setInfoAndStorage JSON.stringify & setItem");
+            let buf = JSON.stringify(argArr[1]);
+            localStorage.setItem(argArr[0],buf);
+            console.log("actions setInfoAndStorage to Storage success!");
+            // ストアへ
+            console.log("actions setInfoAndStorage to Store");
+            context.commit('setInfo',argArr);
         },
         // 汎用リスト更新
         setList(context,argArr) {

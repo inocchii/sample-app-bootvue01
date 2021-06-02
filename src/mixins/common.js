@@ -20,8 +20,25 @@ export default {
     },
     */ 
     methods: {
-        logging: function(argMsg='') {
-            console.log('log msg='+argMsg)
+        logging: function(argMsg) {
+            console.log(argMsg);
+        },
+        //
+        // ログイン関連
+        //
+        getLoginInfo(argKey='') {
+            // 格納KEY
+            if ( argKey == '' ) {
+                argKey = this.FILE_NM_USER_INFO;
+            }
+            // ①ストアから
+            let userInfo = this.$store.getters['entities/getList'](argKey);
+            // ②ストアになければストレッジから
+            if ( userInfo === null ) {
+                this.$store.dispatch('entities/setInfoFromStorage',argKey);
+                userInfo = this.$store.getters['entities/getList'](argKey);
+            }
+            return userInfo;
         },
         //
         // ajax正常受信の場合の結果取り出し
@@ -67,6 +84,8 @@ export default {
         //
         ajaxError: function(argErr) {
             let errMsg = '通信に異常がありました';
+            console.log('ajaxError '+errMsg);
+            console.log(argErr);
             if (argErr.response) {
                 // サーバがステータスコードで応答した(2XXの範囲外)
                 let res = argErr.response;
@@ -76,6 +95,7 @@ export default {
                 console.log('Ajax応答異常 res.headers=' + res.headers);
                 console.log('Ajax応答異常 res.config=' + res.config);
                 console.log('Ajax応答異常 res.data=' + res.data);
+                console.log(argErr.response);
                 // エラーメッセージを補足
                 errMsg += '(異常status='+res.status+')';
             } else if (argErr.request) {
@@ -83,6 +103,7 @@ export default {
                 // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
                 // http.ClientRequest in node.js
                 console.log("Ajax応答なし err.request=" + argErr.request);
+                console.log(argErr.request);
                 // エラーメッセージを補足
                 errMsg += '(サーバ応答なし)';
             } else {
@@ -92,6 +113,7 @@ export default {
                 errMsg += '(要求エラー)';
             }
             console.log('Ajaxエラー err.config=' + argErr.config);
+            console.log(argErr.config);
             alert(errMsg);
             return errMsg;
         },

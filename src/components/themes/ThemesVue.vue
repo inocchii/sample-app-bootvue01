@@ -1,6 +1,43 @@
 <template>
   <div class="Themes">
     <div class="card w-100">
+      <div class="card-header">Vue-Routerについて整理</div>
+      <div class="card-body">
+        <div class="card-text">
+          <h2>ハッシュモードとヒストリモード</h2>
+          <table class="table table-striped table-bordered"> 
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">hashモード</th>
+                <th scope="col">historyモード</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">パスの形式</th>
+                <td>http://localhost:8080/#/hoge</td>
+                <td>http://localhost:8080/hoge</td>
+              </tr>
+              <tr>
+                <th scope="row">メリット</th>
+                <td>設定が簡単<br/>historyモードより早い<br/>HTML5 History API不要</td>
+                <td>URLに＃が入らない</td>
+              </tr>
+              <tr>
+                <th scope="row">注意点</th>
+                <td>URLに＃が入る</td>
+                <td>サーバへの通信が発生する<br/>サーバの設定が必要<br/>HTML5 History API必要</td>
+              </tr>
+            </tbody>
+          </table>
+          <h2>Routerからの値の引き渡しについて</h2>
+          <h2>ルートコンポーネントにプロパティを渡す</h2>
+          <h2>ビルド単位の細分化について(遅延ローディング)</h2>
+        </div>
+      </div>
+    </div>
+    <div class="card w-100">
       <div class="card-header">ライフサイクルフックを整理</div>
       <div class="card-body">
         <div class="card-text">

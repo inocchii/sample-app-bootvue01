@@ -11,6 +11,11 @@
     <div>
       catg={{ this.$route.query.catg }} title={{ this.$route.query.title }}
     </div>
+    <ArticlePayment v-if="this.$route.query.catg === 'Payment'" />
+    <ArticleWordpress v-if="this.$route.query.catg === 'Wordpress'" />
+    <ArticleCordova v-if="this.$route.query.catg === 'Cordova'" />
+    <ArticleLogin v-if="this.$route.query.catg === 'Login'" />
+    <ArticleBluetooth v-if="this.$route.query.catg === 'Bluetooth'" />
     <ArticlePushSend v-if="this.$route.query.catg === 'PushSend'" />
     <ArticleBigSearch v-if="this.$route.query.catg === 'BigSearch'" />
     <ArticleMiniSearch v-if="this.$route.query.catg === 'MiniSearch'" />
@@ -23,6 +28,11 @@
 <script>
 // @ is an alias to /src
 import BarTop from "@/components/BarTopV2.vue";
+import ArticlePayment from "@/components/articles/ArticlePayment.vue";
+import ArticleWordpress from "@/components/articles/ArticleWordpress.vue";
+import ArticleCordova from "@/components/articles/ArticleCordova.vue";
+import ArticleLogin from "@/components/articles/ArticleLogin.vue";
+import ArticleBluetooth from "@/components/articles/ArticleBluetooth.vue";
 import ArticlePushSend from "@/components/articles/ArticlePushSend.vue";
 import ArticleBigSearch from "@/components/articles/ArticleBigSearch.vue";
 import ArticleMiniSearch from "@/components/articles/ArticleMiniSearch.vue";
@@ -42,6 +52,11 @@ export default {
   },
   components: {
     BarTop,
+    ArticlePayment,
+    ArticleWordpress,
+    ArticleCordova,
+    ArticleLogin,
+    ArticleBluetooth,
     ArticlePushSend,
     ArticleBigSearch,
     ArticleMiniSearch,

@@ -448,6 +448,34 @@ http://monaca.localhost/testServer/public/ajxServer.php?code=1&text=1234567890
       <div class="card-header">Ajax：リスト取得</div>
       <div class="card-body"><div class="card-text"></div></div>
     </div>
+    <div class="card w-100">
+      <div class="card-header">Ajax：エラー履歴</div>
+      <div class="card-body">
+        <div class="card-text">
+          <h2>スマホ上のデバッガーで通信エラーとなる</h2>
+          <div class="mention">
+            ブラウザ上ではＯＫ、スマホ上で実行すると「Network error」
+          </div>
+          <div class="note">
+            試してみたこと
+            <ol>
+              <li>サーバへの到達確認
+                <br/>→ サーバへの到達は確認できた</li>
+              <li>SSLとした
+                <br/>→外部BlogをSSLサイトとしたがNG</li>
+              <li>サーバ側レスポンスを<br/>
+                <code>header("Content-Type: text/plain; charset=UTF-8");</code>
+                <br/>→ 効果なし</li>
+              <li>サーバ側レスポンスを<br/>
+                <code>header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');</code>
+                <br/>→ 効果なし</li>
+              <li>Monaka Localkitで実施
+                <br/>→ ブラウザと同様となり現象は出ず</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 

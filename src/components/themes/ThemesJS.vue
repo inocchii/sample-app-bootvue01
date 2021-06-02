@@ -254,8 +254,17 @@ window.objSampleGlobal = new CSampleGlobal('sampleGlobal','this is sample global
       </div>
     </div>
     <div class="card w-100">
-      <div class="card-header">データベース使用について</div>
-      <div class="card-body"><div class="card-text"></div></div>
+      <div class="card-header">無名関数内で親のthisを参照したい</div>
+      <div class="card-body">
+        <div class="card-text">
+          <h2>無名関数内のthis</h2>
+          <p>無名関数の中のthisはグローバルオブジェクトである Windowを指す</p>
+          <h3>対応策</h3>
+          <p>(a) → 親のthisをthatなどとして、無名関数内で参照させる</p>
+          <p>(b) 引数で渡す</p>
+          <p>(c) 無名関数に入る前に変数を定義</p>
+        </div>
+      </div>
     </div>
     <div class="card w-100">
       <div class="card-header">JavaScript使用時の注意点</div>

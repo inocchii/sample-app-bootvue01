@@ -1,8 +1,10 @@
 // note用
 export default {
+  /*
   created() {
     console.log("start notes.js from mixins. OUR_THEME=" + this.OUR_THEME);
   },
+  */
   data() {
     return {
       OUR_THEME: "this is global theme",
@@ -58,10 +60,26 @@ export default {
         },
         {
           id: "054",
+          checked: true,
+          catg: "JavaScript",
+          title: "無名関数内で親のプロパティを参照",
+          words: "thisをthatなどで参照させる",
+          path: "",
+        },
+        {
+          id: "055",
           checked: false,
           catg: "JavaScript",
           title: "Promiseについて整理",
           words: "非同期処理の実装と注意点",
+          path: "",
+        },
+        {
+          id: "100",
+          checked: false,
+          catg: "Vue",
+          title: "Vue-Routerについて整理",
+          words: "Vur-Routerの設定など",
           path: "",
         },
         {

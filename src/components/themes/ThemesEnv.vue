@@ -16,14 +16,17 @@
           <h2>commit時にBuildが走って結果失敗する</h2>
           <h3>現象</h3>
           <h3>とりあえずの回避策</h3>
-          <p>コンソールから</p>
-<pre><code>
-cd (プロジェクトフォルダ)
-git commit -m "コミットメッセージ" --no-verify
-</code></pre>
-          <h2>そもそもの原因と回避策</h2>
-          <h3>Vue CLIでのプロジェクト生成時指定に問題あり？</h3>
-          <h3>そもそもの回避策</h3>
+          <div class="summary">VsCodeのcommitではなくコンソールから行う</div>
+          <div class="code">
+            cd (プロジェクトフォルダ)<br/>
+            git commit -m "コミットメッセージ" --no-verify
+          </div>
+          <h3>そもそもの原因と回避策</h3>
+          <div class="summary">Vue CLIでのプロジェクト生成時指定によるもの</div>
+          <div class="code">
+            ? Pick additional lint features: Lint on save, Lint and fix on commit<br/>
+            → 「Lint and fix on commit」 が余分
+          </div>
         </div>
       </div>
     </div>

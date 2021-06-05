@@ -22,6 +22,7 @@
           </ul>
         </div>
       </div>
+    </div>
     <div class="card w-100">
       <div class="card-header">基礎知識</div>
       <div class="card-body">
@@ -31,6 +32,7 @@
           <h2>BaaS (Backend as a Service)</h2>
         </div>
       </div>
+    </div>
     <div class="card w-100">
       <div class="card-header">ニフクラを使って実装してみる</div>
       <div class="card-body">
@@ -106,6 +108,7 @@
           </div>
         </div>
       </div>
+    </div>
     <div class="card w-100">
       <div class="card-header">Firebaseを使って実装してみる</div>
       <div class="card-body">
@@ -113,6 +116,7 @@
           <h2>Firebaseを使って実装</h2>
         </div>
       </div>
+    </div>
     <div class="card w-100">
       <div class="card-header">独自で実装してみる</div>
       <div class="card-body">

@@ -102,6 +102,8 @@
 
   // レスポンス送信
   header("Content-Type: application/json; charset=UTF-8");
+  // ※ CORS対応 以下は要求元をそのまま許可する場合
+  header('Access-Control-Allow-Origin: '.$_SERVER["HTTP_ORIGIN"]);
   echo $json;
 
   // 終了
@@ -449,9 +451,85 @@ http://monaca.localhost/testServer/public/ajxServer.php?code=1&text=1234567890
       <div class="card-body"><div class="card-text"></div></div>
     </div>
     <div class="card w-100">
+      <div class="card-header">Ajax：CORS回避方法(PHP側)</div>
+      <div class="card-body">
+        <div class="card-text">
+          <h3>■headerにクロスドメイン許可を設定</h3>
+          <ul>
+            <li>全てを許可<br/>
+              <code>header('Access-Control-Allow-Origin: *');</code></li>
+            <li>特定の要求元を許可<br/>
+              $_SERVER["HTTP_ORIGIN"]に要求元が入ってくるのでそれを評価して許可<br/>
+              <code>header('Access-Control-Allow-Origin: '.$_SERVER["HTTP_ORIGIN"]);</code></li>
+          </ul>
+          <div class="link">参考：<a href="https://blog.kazu69.net/2017/03/23/http-request-using-cors/">CORSを使用したHTTPリクエスト</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="card w-100">
+      <div class="card-header">Ajax：CORS回避方法(プロキシ)</div>
+      <div class="card-body">
+        <div class="card-text">
+          <h3>■外部APIで発生する場合はプロキシを使って回避する</h3>
+          <div class="mention">外部APIがCORSオリジンを「*」にしていないとエラーになる</div>
+          <ul>
+            <li>方法A：自身のAPIサーバでプロキシする</li>
+            <li>方法B：Netlifyでプロキシする</li>
+            <li>方法C：Cloudflare Workersで CORSプロキシする</li>
+          </ul>
+          <div class="link">参考：<a href="https://www.codit.work/notes/ia0bnw3n6yfsibpoahke/">Vue.jsアプリでAPIのCORSの壁を越える方法</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="card w-100">
       <div class="card-header">Ajax：エラー履歴</div>
       <div class="card-body">
         <div class="card-text">
+          <h2>通信エラーとなる(CORS関連)</h2>
+          <h3>■現象</h3>
+          <div class="note">chromeのエラーメッセージ</div>
+          <div class="code">
+            Access to XMLHttpRequest at '...'<br/>
+            from origin 'http://localhost:8080' has been blocked by CORS policy:<br/>
+            No 'Access-Control-Allow-Origin' header is present on the requested resource.
+          </div>
+          <div class="mention">
+            ブラウザの拡張機能「CORS Unblock」で回避出来るが本来はNG
+          </div>
+          <h3>■試してみたこと</h3>
+          <ol>
+            <li>サーバへの到達確認
+              <br/>→ サーバへの到達は確認できた</li>
+            <li>ブラウザの拡張機能「CORS Unblock」
+              <br/>→ 回避出来るが本来はNG</li>
+            <li>サーバ側レスポンスを<br/>
+              <code>header('Access-Control-Allow-Origin: *');</code>
+              <br/>→ ブラウザにそれが返ってきてない？ → </li>
+            <li>パケットキャプチャ<br/>
+              <code>sudo tcpdump -i lo0 -X port 80 -s 0 -B 524288 -vv</code>
+              <br/>→ 本来のheaderの前に余分なresponseが発生</li>
+            <li>PHP側を修正して正常に
+              <br/>→ PHP側モジュールの最後尾空行がhtmlのかけらとして返されていた</li>
+          </ol>
+          <h3>■原因と対応</h3>
+          <div class="note">
+            原因Ａ：PHPモジュール最後尾の空行が邪魔をしていた<br/>
+            ★現象：CORS対応のheaderを返す前に初期headerが帰っていた<br/>
+            ★現象：上記のことから、ブラウザでCORSエラーとされていた<br/>
+            対応Ａ：各モジュールの最後尾の空行を削除
+          </div>
+          <h3>■PHP側のCORS対応</h3>
+          <div class="note">
+            headerにクロスドメイン許可を設定<br/>
+            <ul>
+              <li>全てを許可<br/>
+                <code>header('Access-Control-Allow-Origin: *');</code></li>
+              <li>要求元を許可(要求元を限定すれば安全)<br/>
+                <code>header('Access-Control-Allow-Origin: '.$_SERVER["HTTP_ORIGIN"]);</code></li>
+            </ul>
+          </div>
+          <div class="link">参考：<a href="https://blog.kazu69.net/2017/03/23/http-request-using-cors/">CORSを使用したHTTPリクエスト</a></div>
+          <!-- -->
           <h2>スマホ上のデバッガーで通信エラーとなる</h2>
           <div class="mention">
             ブラウザ上ではＯＫ、スマホ上で実行すると「Network error」
@@ -665,6 +743,7 @@ export default {
       this.ex3_res_arr = arr;
     },
   },
+  components: {},
   props: {
     msg: String,
   },

@@ -94,6 +94,12 @@ div.card-text > div.input {
   margin: 3px 0px 3px 30px;
   line-height: 1.2rem;
 }
+div.card-text > div.link {
+  margin: 3px 0px 3px 30px;
+}
+div.card-text > div.code {
+  margin: 3px 0px 3px 30px;
+}
 div.card-text > pre {
   /* line-height: 0.9rem; */
   margin: 3px 0px 3px;

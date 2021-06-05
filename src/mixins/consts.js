@@ -5,8 +5,12 @@ export default {
     data() {
       return {
         // Ajaxメインサーバ
-        AJAX_SERVER: 'http://monaca.localhost/testServer/public/ajxServer.php',
+        //AJAX_SERVER: '/testServer/public/ajxServer.php',
+        //AJAX_SERVER: 'http://localhost/testServer/public/ajxServer.php',
+        //AJAX_SERVER: 'http://monaca.localhost/testServer/public/ajxServer.php',
         //AJAX_SERVER: 'http://10.0.101.51/testServer/public/ajxServer.php',
+        AJAX_SERVER: 'http://10.0.101.51/testServer/public/AjaxServer.php',
+        //AJAX_SERVER: '/testServer/public/ajxServer.php',
         //AJAX_SERVER: 'https://joshi-spa.jp/wp-json/wp/v2/posts',
         //AJAX_SERVER: 'https://api.coindesk.com/v1/bpi/currentprice.json',
 

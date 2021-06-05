@@ -20,12 +20,22 @@
             <li><a href='https://nifcloud-mbaas.github.io/MonacaUserDemoApp2/#53'>ニフクラ：アプリに会員認証機能を導入</a></li>
             <li><a href='https://mbaas.nifcloud.com/doc/current/introduction/div_quickstart_javascript.html'>ニフクラ：SDKの導入</a></li>
           </ul>
-          <!-- -->
+        </div>
+      </div>
+    <div class="card w-100">
+      <div class="card-header">基礎知識</div>
+      <div class="card-body">
+        <div class="card-text">
           <h2>基礎知識(OAuthについて)</h2>
           <!-- -->
           <h2>BaaS (Backend as a Service)</h2>
-          <!-- -->
-          <h2>ニフクラを使って実装してみる</h2>
+        </div>
+      </div>
+    <div class="card w-100">
+      <div class="card-header">ニフクラを使って実装してみる</div>
+      <div class="card-body">
+        <div class="card-text">
+          <h2>ニフクラを使って実装</h2>
           <h3>■ ncmb初期化〜データアクセス確認</h3>
           <div class="summary">
             <button class="button" @click="checkNcmb">確認</button><br/>
@@ -63,6 +73,14 @@
             → 画面の出入りで成功するので、<br/>
             → 当初接続のタイミング調整が必要と思われる
           </div>
+          <div class="note">
+            ncmb.jsを書き換えて回避(以下をコメントアウト)<br/>
+            <div class="code">
+              if (typeof define === 'function' && define.amd) {<br/>
+                define([], NCMB);<br/>
+              }
+            </div>
+          </div>
           <!-- -->
           <h2>ログイン後の状態保持と復元</h2>
           <h3>■ 保持はvuex(store)とLocalStorageの両建て</h3>
@@ -86,10 +104,34 @@
             ・保持されたユーザ情報の前回ログイン時刻を現在と比較して判定<br/>
             ・本来は有効期限判定をサーバ側で行う方が良い(制御が効く)
           </div>
-          <!-- -->
-          <h2>Firebaseを使って実装してみる</h2>
-          <!-- -->
-          <h2>独自で実装</h2>
+        </div>
+      </div>
+    <div class="card w-100">
+      <div class="card-header">Firebaseを使って実装してみる</div>
+      <div class="card-body">
+        <div class="card-text">
+          <h2>Firebaseを使って実装</h2>
+        </div>
+      </div>
+    <div class="card w-100">
+      <div class="card-header">独自で実装してみる</div>
+      <div class="card-body">
+        <div class="card-text">
+          <h2>考え方の整理</h2>
+          <h2>ローカルで必要なもの</h2>
+          <ol>
+            <li>ユーザIDの保管</li>
+            <li>トークンの保管</li>
+            <li>パスワードの暗号化と保管</li>
+          </ol>
+          <h2>サーバ側で必要なもの</h2>
+          <ol>
+            <li>ユーザ情報(ID/PWD)の保管</li>
+            <li>認証と認可</li>
+            <li>トークンの発行・更新・保管</li>
+            <li>セッション保持(トークン)</li>
+            <li>トークンの有効期限チェック</li>
+          </ol>
         </div>
       </div>
     </div>
@@ -101,9 +143,12 @@ export default {
   name: "ArticleLogin",
   mounted: function() {
     // ncmbモジュールの読み込み
+    console.log("mounted start");
     var NCMB = require("ncmb");
     // mobile backendアプリとの連携
-    this.ncmb = new NCMB("676d04b89ce11e6121f3c08596268f65b1761c0f1e19a95f2cdff9da9ca15194","6f9629e78ce614f991b56d64c003a82f91727a0b65969efce0648e4c56e4478a");
+    console.log("mounted new NCMB with appKey:"+this.ncmbAppKey+" clKey:"+this.ncmbClientKey);
+    this.ncmb = new NCMB(this.ncmbAppKey,this.ncmbClientKey);
+    console.log("mounted new NCMB continue");
     this.checkNcmbImport = true;
 
     // ログインの確認(this.getLoginInfo=mixinsで共通関数化)

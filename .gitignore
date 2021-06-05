@@ -25,3 +25,6 @@ pnpm-debug.log*
 # 2021.05.05 monaca
 res
 
+# 2021.06.04 vue.config.js を除外
+vue.config.js
+

@@ -122,7 +122,7 @@
           <!-- URL選択 -->
           <select v-model="ex1_url">
             <option disabled value="">-</option>
-            <option value="http://monaca.localhost/testServer/public/ajxServer.php">ajxServer</option>
+            <option :value="AJAX_SERVER">ajxServer</option>
             <option value="http://monaca.localhost/testServer/public/ajxServ.php">NO PHP</option>
             <option value="http://monaca.localho/testServer/public/ajxServ.php">NO SERVER</option>
           </select>
@@ -257,7 +257,7 @@ export default {
   data() {
     return {
       // ex1 受信してみる
-      ex1_url:    null,
+      ex1_url:    this.AJAX_SERVER,
       ex1_param:  null,
       ex1_res:    null, // 戻り情報丸ごとの格納
       ex1_err:    null, // エラー情報丸ごとの格納

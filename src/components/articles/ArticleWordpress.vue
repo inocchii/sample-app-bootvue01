@@ -87,14 +87,10 @@
           <select v-model="ajaxServer">
             <option value="http://shambeel.com/wp-json/wp/v2/posts">Main</option>
             <option value="./json/j1.json">./json/j1.json</option>
-            <option value="./json/j2.json">./json/j2.json</option>
-            <option value="./json/j3.json">./json/j3.json</option>
             <option value="https://api.coindesk.com/v1/bpi/currentprice.json">currentprice.json</option>
-            <option value="https://crooz.co.jp/wp-json/wp/v2/posts">crooz.co.jp wp-json</option>
-            <option value="https://www.wired.com/wp-json/wp/v2/posts">wired.com wp-json</option>
+            <option value="https://techcrunch.com/wp-json/wp/v2/posts">techcrunch.com wp-json</option>
             <option value="https://joshi-spa.jp/wp-json/wp/v2/posts">joshi-spa wp-json</option>
             <option value="http://monaca.localhost/testServer/public/ajxServer.php">local:ajxServer</option>
-            <option value="http://10.0.101.51/testServer/public/ajxServer.php">ip:ajxServer</option>
             <option value="http://10.0.101.51/testServer/public/ajxServe.php">ip:No PHP</option>
             <option value="http://10.0.101.50/testServer/public/ajxServer.php">ip:No SERVER</option>
           </select>

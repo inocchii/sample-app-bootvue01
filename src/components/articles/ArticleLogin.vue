@@ -136,6 +136,48 @@
             <li>セッション保持(トークン)</li>
             <li>トークンの有効期限チェック</li>
           </ol>
+          <h2>ログインしてみる</h2>
+          <h3>■ 初回登録の場合はこちら</h3>
+          <div v-if="view_kbn==1" style="text-align: center;">
+            <input type="text" v-model="userid" modifier="underbar" placeholder="USERID" float /><br/>
+            <input type="text" v-model="usernm" modifier="underbar" placeholder="USERNM" float /><br/>
+            <input type="text" v-model="email" modifier="underbar" placeholder="EMAIL" float /><br/>
+            <input type="password" v-model="passwd" modifier="underbar" placeholder="Password" float /><br/>
+            <input type="password" v-model="passwd2" modifier="underbar" placeholder="Password confirm" float /><br/>
+            <p style="text-align: center;">
+                <button @click="signup3();">Sign up</button>
+            </p>
+          </div>
+          <div v-if="view_kbn==2" style="text-align: center;">
+            確認ください<br/>
+            userid: {{userid}} <br/>
+            usernm: {{usernm}} <br/>
+            email: {{email}} <br/>
+            <p style="text-align: center;">
+                <button @click="signup3();">Confirm</button>
+            </p>
+          </div>
+          <div v-if="view_kbn==3" style="text-align: center;">
+            登録されました<br/>
+            userid: {{userid}} <br/>
+            usernm: {{usernm}} <br/>
+            email: {{email}} <br/>
+          </div>
+          <h3>■ ログイン</h3>
+          <div style="text-align: center;">
+            <input type="text" v-model="userid" modifier="underbar" placeholder="USERID" float /><br/>
+            <input type="password" v-model="passwd" modifier="underbar" placeholder="Password" float /><br/>
+            <p style="text-align: center;">
+                <button @click="signin3();">Login</button>
+            </p>
+          </div>
+          <h3>■ ログイン状態</h3>
+          <div v-if="userInfo3" class="summary">
+            ○ログイン完了 userName:{{ userInfo3.usernm }} lastLogin:{{ userInfo3.last_login }}
+          </div>
+          <div v-else class="summary">
+            Ｘログインしていません
+          </div>
         </div>
       </div>
     </div>
@@ -171,6 +213,9 @@ export default {
   },
   data() {
     return {
+      //----------
+      // ニフクラ
+      //----------
       // ncmb
       ncmb: null,
       // 動作確認用
@@ -186,6 +231,21 @@ export default {
       signinPwd: '',
       // ログインユーザオブジェクト
       loginUser: null,
+      //----------
+      // 独自
+      //----------
+      // ログイン情報
+      userid:   '',
+      usernm:   '',
+      email:    '',
+      passwd:   '',
+      passwd2:  '',
+      token:    '',
+      last_login: '',
+      // 画面切り替え
+      view_kbn: '1',  // '1':入力画面 '2':確認画面 '3':完了画面
+      // ユーザオブジェクト
+      userInfo3: null,
     };
   },
   computed: {},
@@ -247,64 +307,10 @@ export default {
         });
       //
       return this.checkByID(this.signupUserId,this.signupPwd);
-      /*
-      // 無名関数内で親のthisをthatで参照
-      var that = this;
-      // ID/PWでログイン
-      this.ncmb.User.login(this.signupUserId, this.signupPwd)
-        .then(function(user) {
-          // 処理成功
-          alert('【ID/PW認証】ログイン成功:', user);
-          that.loginUser = user;
-          console.log('【ID/PW 認証】ログイン成功');
-          console.log(user);
-          // ログイン済み状態をstoreへ
-          console.log('store user:'+this.FILE_NM_USER_INFO);
-          this.$store.dispatch('entities/setInfoAndStorage',[this.FILE_NM_USER_INFO,user]);
-          console.log('【ID/PW 認証】保持完了：store & storage');
-        })
-        .catch(function(error) {
-          // 処理失敗
-          alert('【ID / PW 認証】ログイン失敗:', error);
-          console.log('【ID/PW 認証】ログイン失敗');
-          console.log(error);
-          return false;
-        });
-      */
     },
     /***** ID/PW認証：ログイン *****/
     signinByID: function() {
       return this.checkByID(this.signinUserId,this.signinPwd);
-      /*
-      // 入力チェック
-      if( this.signinUserId == '' || this.signinPwd == '' ) {
-          alert('入力されていない項目があります');
-          return false;
-      }
-      //
-      // 無名関数内で親のthisをthatで参照
-      var that = this;
-      // ID/PWでログイン
-      this.ncmb.User.login(this.signinUserId, this.signinPwd)
-        .then(function(user) {
-          // 処理成功
-          alert('【ID/PW認証】ログイン成功:', user);
-          that.loginUser = user;
-          console.log('signinByID【ID/PW 認証】ログイン成功');
-          console.log(user);
-          // ログイン済み状態をstoreへ
-          console.log('signinByID store user:'+that.FILE_NM_USER_INFO);
-          that.$store.dispatch('entities/setInfoAndStorage',[that.FILE_NM_USER_INFO,user]);
-          console.log('signinByID【ID/PW 認証】保持完了：store & storage');
-        })
-        .catch(function(error) {
-          // 処理失敗
-          alert('【ID / PW 認証】ログイン失敗:', error);
-          console.log('signinByID【ID/PW 認証】ログイン失敗');
-          console.log(error);
-          return false;
-        });
-        */
     },
     /***** ID/PW認証：ログイン共通化 *****/
     async checkByID(argUserId,argPwd) {
@@ -341,6 +347,159 @@ export default {
           return false;
         });
       return true;
+    },
+    /***** ID/PW認証：新規登録 *****/
+    async signup3() { 
+      let url = this.AJAX_SERVER + "?" + this.AJAX_CHECK_SIGNUP;
+      let resData = null;
+      let resMsg = null;
+      let result = false;
+
+      this.userInfo3 = null;
+
+      // 入力チェック
+      if( this.userid == '' || this.usernm == '' || this.email == '' || this.passwd == '' || this.passwd2 == '' ) {
+          alert('入力されていない項目があります');
+          return false;
+      } else if ( this.passwd != this.passwd2 ) {
+          alert('パスワードが不一致です');
+          return false;
+      }
+
+      // 画面切り替え
+      if ( this.view_kbn === '1' ) {
+        this.view_kbn = '2';
+        return true;
+      }
+      this.view_kbn = '1';
+
+      // url
+      url += "&userid="+this.userid+"&passwd="+this.passwd+"&usernm="+this.usernm+"&email="+this.email;
+
+      // 無名関数内で親のthisをthatで参照
+      var that = this;
+      //
+      // 受信部分
+      //
+      await this.axios
+        .get(url)
+        .then((response) => {
+          // mixinの汎用メソッドで処理
+          resData = this.ajaxSuccess(response);
+        })
+        .catch((err) => {
+          // mixinの汎用メソッドで処理
+          resMsg = this.ajaxError(err);
+          alert('【ID / PW 認証】新規登録失敗:Ajax失敗：', resMsg);
+          console.log('【ID/PW 認証】新規登録失敗Ajax失敗：', resMsg);
+          console.log(err);
+          return false;
+        });
+      // 確認
+      console.log(resData);
+      console.log("resData.data.result:"+resData.result+" message:"+resData.message);
+      result = resData.result;
+      resMsg = resData.message;
+
+      // サーバ処理判定(result)確認
+      if ( ! result ) {
+          alert('【ID/PW 認証】新規登録失敗:'+resMsg);
+          console.log('【ID/PW 認証】新規登録失敗:'+resMsg);
+          return false;
+      }
+
+      // infoが取れていなければ異常終了
+      if ( resData.info === null ) {
+          alert('【ID/PW 認証】新規登録失敗:ユーザ情報が空');
+          console.log('【ID/PW 認証】新規登録失敗:ユーザ情報が空');
+          return false;
+      }
+      this.userInfo3 = resData.info;
+
+      // ログイン済み状態をstoreへ
+      console.log('signup3 store:'+that.FILE_NM_USER_INFO3);
+      that.$store.dispatch('entities/setInfoAndStorage',[that.FILE_NM_USER_INFO3,this.userInfo3]);
+      console.log('signup3 store 保持完了：store & storage');
+      /* 処理成功 */
+      console.log('【ID/PW 認証】成功');
+      console.log(this.userInfo3);
+      
+      this.view_kbn = '3';
+
+      return true;
+
+    },
+
+    /***** ID/PW認証：ログイン *****/
+    async signin3() {
+      let url = this.AJAX_SERVER + "?" + this.AJAX_CHECK_LOGIN;
+      let resData = null;
+      let resMsg = null;
+      let result = false;
+
+      this.userInfo3 = null;
+
+      // 入力チェック
+      if( this.userid == '' || this.passwd == '' ) {
+          alert('入力されていない項目があります');
+          return false;
+      }
+
+      // 確認
+      if ( !confirm("ログインします") ) {
+        return false;
+      }
+
+      // url
+      url += "&userid="+this.userid+"&passwd="+this.passwd;
+
+      // 無名関数内で親のthisをthatで参照
+      var that = this;
+      //
+      // 受信部分
+      //
+      await this.axios
+        .get(url)
+        .then((response) => {
+          // mixinの汎用メソッドで処理
+          resData = this.ajaxSuccess(response);
+        })
+        .catch((err) => {
+          // mixinの汎用メソッドで処理
+          resMsg = this.ajaxError(err);
+          alert('【ID/PW 認証】失敗:Ajax失敗：', resMsg);
+          console.log('【ID/PW 認証】失敗Ajax失敗：', resMsg);
+          console.log(err);
+          return false;
+        });
+      // 確認
+      console.log("resData.result:"+resData.result+" message:"+resData.message);
+      result = resData.result;
+      resMsg = resData.message;
+      // サーバ処理判定(result)確認
+      if ( ! result ) {
+          alert('【ID/PW 認証】失敗:'+resMsg);
+          console.log('【ID/PW 認証】失敗:'+resMsg);
+          return false;
+      }
+      // infoが取れていなければ異常終了
+      if ( resData.info === null ) {
+          alert('【ID/PW 認証】新規登録失敗:ユーザ情報が空');
+          console.log('【ID/PW 認証】新規登録失敗:ユーザ情報が空');
+          return false;
+      }
+      this.userInfo3 = resData.info;
+      
+      // ログイン済み状態をstoreへ
+      console.log('signup3 store:'+that.FILE_NM_USER_INFO3);
+      that.$store.dispatch('entities/setInfoAndStorage',[that.FILE_NM_USER_INFO3,this.userInfo3]);
+      console.log('signup3 store 保持完了：store & storage');
+      /* 処理成功 */
+      console.log('【ID/PW 認証】成功');
+      console.log(this.userInfo3);
+
+      return true;
+
     },
   },
   props: {},

@@ -309,12 +309,15 @@ export default {
           console.log('Ajaxエラー msg=' + this.ex1_msg);
         });
       // dataが取れていなければ異常終了
+      /*
       if ( !Array.isArray(this.ex1_data) ) {
           console.log('Ajaxエラー res.data is null & return false');
           this.ex1_data = false;
           return false;
       }
+      */
       // list を抽出
+      /*
       for ( const obj of this.ex1_data ) {
         console.log('ex1_data obj:'+obj);
         if ( obj.list ) {
@@ -328,7 +331,22 @@ export default {
           }
         }
       } 
+      */
+      if ( this.ex1_data.list === null ) {
+          alert('【エラー】ファイル情報が取得できていません');
+          console.log('Ajaxエラー ファイル情報が取得できていません');
+          return false;
+      }
+      // 各行
+      for ( const record of this.ex1_data.list ) {
+        console.log('list.record.file_id:'+record.file_id.toString());
+        console.log('list.record.file_nm:'+record.file_nm.toString());
+        console.log('list.record.file_version:'+record.file_version.toString());
+      }
+      this.ex1_list = this.ex1_data.list;
+
       return true;
+
     },
     //
     // LocalStorage get

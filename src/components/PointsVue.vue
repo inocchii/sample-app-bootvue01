@@ -52,6 +52,16 @@ export default {
       // 課題
       points: [
         {
+          id: "001",
+          title: "Mixinで他のMixinを参照できない",
+          words:
+            "data()内での参照ができない！" +
+            " → importして「conf.data().serverPath」のようにして出来た" +
+            "（※method系はthisで出来そう）" +
+            " → 「createでプロパティにセット」としても良いかも",
+          checked: true,
+        },
+        {
           id: "101",
           title: "戻った時に画面状態を復元(タブ位置)",
           words:

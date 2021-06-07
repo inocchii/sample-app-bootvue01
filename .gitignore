@@ -23,8 +23,9 @@ pnpm-debug.log*
 *.sw?
 
 # 2021.05.05 monaca
-res
+res/
 
 # 2021.06.04 vue.config.js を除外
 vue.config.js
 
+package.json_210606

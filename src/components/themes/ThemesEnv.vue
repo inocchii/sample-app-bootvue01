@@ -10,22 +10,66 @@
       </div>
     </div>
     <div class="card w-100">
-      <div class="card-header">Git commit時の自動Buildを回避する</div>
+      <div class="card-header">Git対象から外したい時</div>
       <div class="card-body">
         <div class="card-text">
-          <h2>commit時にBuildが走って結果失敗する</h2>
+          <h3>内容</h3>
+          <ol>
+            <li>git対象を確認する</li>
+            <li>.gitignoreを使用する</li>
+            <li>git対象から除外する（１）</li>
+            <li>git対象から除外する（２）</li>
+          </ol>
+          <h3>どういったもの</h3>
+          <ol>
+            <li>ローカル固有の設定ファイル</li>
+            <li>ログファイル</li>
+          </ol>
+          <h2>git対象を確認する</h2>
+          <div class="code">
+            $ git ls-files -v | grep vue
+          </div>
+          <h2>.gitignoreを使用する</h2>
+          <div class="mention">追跡対象となったものを指定してもダメ</div>
+          <div class="note">その場合は対象からの除外をしてやる必要あり</div>
+          <h2>git対象から除外する（１）</h2>
+          <p>変更は保持されるがリポジトリとの連携はされなくなる</p>
+          <div class="code">$ git update-index --skip-worktree ...</div>
+          <p>戻す</p>
+          <div class="code">$ git update-index --no-skip-worktree ...</div>
+          <h2>git対象から除外する（２）</h2>
+          <p>対象のindexから除外する</p>
+          <div class="code">$ git rm --cached ...</div>
+        </div>
+      </div>
+    </div>
+    <div class="card w-100">
+      <div class="card-header">Git commit時の自動チェックを回避する</div>
+      <div class="card-body">
+        <div class="card-text">
+          <h2>commit時にlintが走って結果失敗する</h2>
           <h3>現象</h3>
+          <div class="note">VsCodeでのcommit時に時間がかかり結果失敗する</div>
           <h3>とりあえずの回避策</h3>
           <div class="summary">VsCodeのcommitではなくコンソールから行う</div>
           <div class="code">
-            cd (プロジェクトフォルダ)<br/>
+            cd (プロジェクトフォルダ)<br />
             git commit -m "コミットメッセージ" --no-verify
           </div>
           <h3>そもそもの原因と回避策</h3>
-          <div class="summary">Vue CLIでのプロジェクト生成時指定によるもの</div>
+          <div class="summary">
+            Vue CLIでのプロジェクト生成時指定により<br/>
+            commit時に「vue-cli-service lint」が動作してエラーとなっていた
+          </div>
           <div class="code">
-            ? Pick additional lint features: Lint on save, Lint and fix on commit<br/>
-            → 「Lint and fix on commit」 が余分
+            ? Pick additional lint features: Lint on save, Lint and fix on commit<br />
+            → 「Lint and fix on commit」によるもの
+          </div>
+          <div class="mention">暫定策：下記を「package.json」から除外する</div>
+          <div class="code">
+            "gitHooks": {<br />
+              "pre-commit": "lint-staged"<br />
+            },<br />
           </div>
         </div>
       </div>

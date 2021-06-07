@@ -51,9 +51,11 @@ export default {
             console.log("Ajax応答 res.config=" + argRes.config);
             console.log("Ajax応答 res.data=" + argRes.data);
             // res.dataが不正の場合は空で返す
+            /*
             if ( !Array.isArray(argRes.data) ) {
                 return false;
             }
+            */
             // 解析した結果をbufに入れて戻す
             let decData;
             let buf;

@@ -12,6 +12,8 @@ const entities = {
     state: {
         // ユーザ情報
         user_info: null,
+        user_info2: null,
+        user_info3: null,
         // ファイルバージョンリスト
         file_version_list: null,
         // 分類リスト

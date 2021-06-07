@@ -260,7 +260,7 @@ export default {
       //let resErr = null;
       let resMsg = null;
 
-      let itemList = null
+      //let itemList = null
 
       console.log("Ajax要求 url=" + url);
 
@@ -278,26 +278,17 @@ export default {
           resMsg = this.ajaxError(err);
           console.log('Ajaxエラー msg=' + resMsg);
         });
-      // dataが取れていなければ異常終了
-      if ( !Array.isArray(resData) ) {
-          console.log('Ajaxエラー res.data is null & return false');
-          return false;
-      }
-      // list を抽出
-      for ( const obj of resData ) {
-        console.log('res.data obj:'+obj);
-        if ( obj.list ) {
-          console.log('res.data.list:'+obj.list);
-          itemList = obj.list;
-        }
-      } 
-      // listが取れていなければ異常終了
-      if ( itemList === null ) {
+      
+      // listが取得できなければエラー
+      if ( resData.list === null ) {
+          alert('【エラー】商品リストが取得できていません');
           console.log('Ajaxエラー 商品リストが取得できていません');
           return false;
       }
-      return itemList;
+      return resData.list;
+      //return itemList;
     },
+
     saveItemList: function() {
       console.log("saveItemList start:"+this.FILE_NM_ITEM_LIST);
       if ( this.getCount(this.itemList) > 0 ) {

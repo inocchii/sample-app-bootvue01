@@ -245,7 +245,7 @@ export default {
       //let resErr = null;
       let resMsg = null;
 
-      let toriList = null
+      //let toriList = null
 
       console.log("Ajax要求 url=" + url);
 
@@ -264,11 +264,16 @@ export default {
           console.log('Ajaxエラー msg=' + resMsg);
         });
       // dataが取れていなければ異常終了
+      /*
       if ( !Array.isArray(resData) ) {
           console.log('Ajaxエラー res.data is null & return false');
           return false;
       }
+      */
+      // 確認
+      console.log("resData.result:"+resData.result+" message:"+resData.message);
       // list を抽出
+      /*
       for ( const obj of resData ) {
         console.log('res.data obj:'+obj);
         if ( obj.list ) {
@@ -276,12 +281,21 @@ export default {
           toriList = obj.list;
         }
       } 
+      */
       // listが取れていなければ異常終了
+      /*
       if ( toriList === null ) {
           console.log('Ajaxエラー 取引先リストが取得できていません');
           return false;
       }
-      return toriList;
+      */
+      if ( resData.list === null ) {
+          alert('【エラー】取引先リストが取得できていません');
+          console.log('Ajaxエラー 取引先リストが取得できていません');
+          return false;
+      }
+      return resData.list;
+      //return toriList;
     },
     saveToriList: function() {
       console.log("saveToriList start:"+this.FILE_NM_TORI_LIST);

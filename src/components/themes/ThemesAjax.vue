@@ -419,10 +419,10 @@ http://monaca.localhost/testServer/public/ajxServer.php?code=1&text=1234567890
       <div class="card-header">Ajax：ログインチェック(SR：１レコード型)</div>
       <div class="card-body">
         <div class="card-text">
-          <input type="text" name="login_id" v-model="ex3_login_id" />{{
+          <input type="text" name="userid" v-model="ex3_login_id" />{{
             ex3_login_id
           }}
-          <input type="password" name="login_pw" v-model="ex3_login_pw" />{{
+          <input type="password" name="passwd" v-model="ex3_login_pw" />{{
             ex3_login_pw
           }}
           <button @click="ex3LoginCheck">ログインチェック</button>
@@ -686,12 +686,13 @@ export default {
     // ログインチェック
     //
     ex3LoginCheck: async function () {
-      var ex3_url = "http://monaca.localhost/testServer/public/ajxServer.php";
+      //var ex3_url = "http://monaca.localhost/testServer/public/ajxServer.php";
+      var ex3_url = "http://monaca.localhost/testServer/public/AjaxServer.php";
       // パラメータ
       var ex3_param =
-        "function=checkLogin&login_id=" +
+        "function=checkLogin&userid=" +
         this.ex3_login_id +
-        "&login_pw=" +
+        "&passwd=" +
         this.ex3_login_pw; // パラメータ
       console.log("Ajax要求 url=" + ex3_url + " param=" + ex3_param);
       let res = null;

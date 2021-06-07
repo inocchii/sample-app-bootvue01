@@ -229,8 +229,6 @@ export default {
       //let resErr = null;
       let resMsg = null;
 
-      let bunList = null
-
       console.log("Ajax要求 url=" + url);
 
       //
@@ -247,26 +245,19 @@ export default {
           resMsg = this.ajaxError(err);
           console.log('Ajaxエラー msg=' + resMsg);
         });
-      // dataが取れていなければ異常終了
-      if ( !Array.isArray(resData) ) {
-          console.log('Ajaxエラー res.data is null & return false');
-          return false;
-      }
-      // list を抽出
-      for ( const obj of resData ) {
-        console.log('res.data obj:'+obj);
-        if ( obj.list ) {
-          console.log('res.data.list:'+obj.list);
-          bunList = obj.list;
-        }
-      } 
+
+      // 確認
+      console.log("resData.result:"+resData.result+" message:"+resData.message);
+
       // listが取れていなければ異常終了
-      if ( bunList === null ) {
+      if ( resData.list === null ) {
+          alert('【エラー】分類リストが取得できていません');
           console.log('Ajaxエラー 分類リストが取得できていません');
           return false;
       }
-      return bunList;
+      return resData.list;
     },
+    
     saveBunList: function() {
       console.log("saveBunList start:"+this.FILE_NM_BUN_LIST);
       if ( this.getCount(this.bunList) > 0 ) {

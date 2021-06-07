@@ -139,7 +139,23 @@
     </div>
     <div class="card w-100">
       <div class="card-header">共通定義(mixin)の使用方法</div>
-      <div class="card-body"><div class="card-text"></div></div>
+      <div class="card-body">
+        <div class="card-text">
+          <h2>注意点</h2>
+          <ol>
+            <li>mixinでの他のmixin使用に注意</li>
+          </ol>
+          <h2>mixinでの他のmixin使用に注意</h2>
+          <div class="mention">data()内では上手く参照できない</div>
+<pre><code>     // 他のmixinをimportして参照した
+          import conf from "./conf.js";
+          data() {
+            return {
+              AJAX_SERVER: conf.data().serverPath+'...',
+</code></pre>
+          <div class="note">methodではthis.で参照できているようである</div>
+        </div>
+      </div>
     </div>
     <div class="card w-100">
       <div class="card-header">Vuexとは</div>

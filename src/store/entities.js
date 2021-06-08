@@ -78,6 +78,13 @@ const entities = {
             console.log("actions clear name="+argNm);
             context.commit('clear',argNm);
         },
+        // 汎用リストクリア
+        clearWithStorage(context,argNm) {
+            console.log("actions clearWithStorage name="+argNm);
+            context.commit('clear',argNm);
+            localStorage.removeItem(argNm);
+            console.log("actions clearWithStorage success!");
+        },
         // 分類リストクリア
         clearBunList(context) {
             console.log("actions clearBunList start");

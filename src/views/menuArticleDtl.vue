@@ -11,16 +11,17 @@
     <div>
       catg={{ this.$route.query.catg }} title={{ this.$route.query.title }}
     </div>
-    <ArticlePayment v-if="this.$route.query.catg === 'Payment'" />
-    <ArticleWordpress v-if="this.$route.query.catg === 'Wordpress'" />
-    <ArticleCordova v-if="this.$route.query.catg === 'Cordova'" />
-    <ArticleLogin v-if="this.$route.query.catg === 'Login'" />
-    <ArticleBluetooth v-if="this.$route.query.catg === 'Bluetooth'" />
-    <ArticlePushSend v-if="this.$route.query.catg === 'PushSend'" />
     <ArticleBigSearch v-if="this.$route.query.catg === 'BigSearch'" />
-    <ArticleMiniSearch v-if="this.$route.query.catg === 'MiniSearch'" />
-    <ArticleMiniMaster v-else-if="this.$route.query.catg === 'MiniMaster'" />
+    <ArticleBluetooth v-if="this.$route.query.catg === 'Bluetooth'" />
+    <ArticleCordova v-if="this.$route.query.catg === 'Cordova'" />
     <ArticleFileVersion v-else-if="this.$route.query.catg === 'FileVersion'" />
+    <ArticleLogin v-if="this.$route.query.catg === 'Login'" />
+    <ArticleMap v-if="this.$route.query.catg === 'Map'" />
+    <ArticleMiniMaster v-else-if="this.$route.query.catg === 'MiniMaster'" />
+    <ArticleMiniSearch v-if="this.$route.query.catg === 'MiniSearch'" />
+    <ArticlePayment v-if="this.$route.query.catg === 'Payment'" />
+    <ArticlePushSend v-if="this.$route.query.catg === 'PushSend'" />
+    <ArticleWordpress v-if="this.$route.query.catg === 'Wordpress'" />
     <div v-else>category not defined ({{ this.$route.query.catg }})</div>
   </div>
 </template>
@@ -28,16 +29,17 @@
 <script>
 // @ is an alias to /src
 import BarTop from "@/components/BarTopV2.vue";
-import ArticlePayment from "@/components/articles/ArticlePayment.vue";
-import ArticleWordpress from "@/components/articles/ArticleWordpress.vue";
-import ArticleCordova from "@/components/articles/ArticleCordova.vue";
-import ArticleLogin from "@/components/articles/ArticleLogin.vue";
-import ArticleBluetooth from "@/components/articles/ArticleBluetooth.vue";
-import ArticlePushSend from "@/components/articles/ArticlePushSend.vue";
 import ArticleBigSearch from "@/components/articles/ArticleBigSearch.vue";
-import ArticleMiniSearch from "@/components/articles/ArticleMiniSearch.vue";
-import ArticleMiniMaster from "@/components/articles/ArticleMiniMaster.vue";
+import ArticleBluetooth from "@/components/articles/ArticleBluetooth.vue";
+import ArticleCordova from "@/components/articles/ArticleCordova.vue";
 import ArticleFileVersion from "@/components/articles/ArticleFileVersion.vue";
+import ArticleLogin from "@/components/articles/ArticleLogin.vue";
+import ArticleMap from "@/components/articles/ArticleMap.vue";
+import ArticleMiniMaster from "@/components/articles/ArticleMiniMaster.vue";
+import ArticleMiniSearch from "@/components/articles/ArticleMiniSearch.vue";
+import ArticlePayment from "@/components/articles/ArticlePayment.vue";
+import ArticlePushSend from "@/components/articles/ArticlePushSend.vue";
+import ArticleWordpress from "@/components/articles/ArticleWordpress.vue";
 
 export default {
   name: "Themes",
@@ -52,16 +54,17 @@ export default {
   },
   components: {
     BarTop,
-    ArticlePayment,
-    ArticleWordpress,
-    ArticleCordova,
-    ArticleLogin,
-    ArticleBluetooth,
-    ArticlePushSend,
     ArticleBigSearch,
-    ArticleMiniSearch,
-    ArticleMiniMaster,
+    ArticleBluetooth,
+    ArticleCordova,
     ArticleFileVersion,
+    ArticleLogin,
+    ArticleMap,
+    ArticleMiniMaster,
+    ArticleMiniSearch,
+    ArticlePayment,
+    ArticlePushSend,
+    ArticleWordpress,
   },
 };
 </script>

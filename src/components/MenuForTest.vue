@@ -154,6 +154,11 @@ export default {
           words: "決済サービスとのAPI連携",
         },
         {
+          path: "/articledtl?catg=Map",
+          title: "地図",
+          words: "GoogleMap対応",
+        },
+        {
           path: "",
           title: "画像保持",
           words: "オフライン対応(ファイルプラグイン)",
@@ -234,7 +239,7 @@ export default {
           words: "Vuex、Mixins等",
         },
         {
-          path: "",
+          path: "/articledtl?catg=MiniSearch",
           title: "Ajax(Axios)",
           words: "Ajax部分をコンパクトに",
         },

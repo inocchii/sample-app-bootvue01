@@ -65,6 +65,7 @@
           <h3>■ ログイン状態</h3>
           <div v-if="loginUser" class="summary">
             ○ログイン完了 userName:{{ loginUser.userName }} lastLogin:{{ loginUser.lastLoginDate }}
+            <br/><button @click="clearLoginUser(FILE_NM_USER_INFO)">クリア</button>
           </div>
           <div v-else class="summary">
             Ｘログインしていません
@@ -174,6 +175,7 @@
           <h3>■ ログイン状態</h3>
           <div v-if="userInfo3" class="summary">
             ○ログイン完了 userName:{{ userInfo3.usernm }} lastLogin:{{ userInfo3.last_login }}
+            <br/><button @click="clearLoginUser(FILE_NM_USER_INFO3)">クリア</button>
           </div>
           <div v-else class="summary">
             Ｘログインしていません
@@ -187,8 +189,11 @@
 <script>
 export default {
   name: "ArticleLogin",
+
   mounted: function() {
+    //----------
     // ncmbモジュールの読み込み
+    //----------
     console.log("mounted start");
     var NCMB = require("ncmb");
     // mobile backendアプリとの連携
@@ -197,19 +202,26 @@ export default {
     console.log("mounted new NCMB continue");
     this.checkNcmbImport = true;
 
-    // ログインの確認(this.getLoginInfo=mixinsで共通関数化)
-    console.log("mounted getLoginInfo start with:"+this.FILE_NM_USER_INFO);
+    //----------
+    // ncmbログインの確認
+    //   getLoginInfo (mixinで共通関数化)
+    //   ①ストア(Vuex)を確認 ②ストアになければLocalStorageを確認
+    //   格納KEYをFILE_NM_USER_INFO(mixin)で定義
+    //----------
+    console.log("mounted getLoginInfo(ncmb) start with:"+this.FILE_NM_USER_INFO);
     this.loginUser = this.getLoginInfo(this.FILE_NM_USER_INFO);
     console.log(this.loginUser);
-    /*
-    // ①ストアから
-    this.loginUser = this.$store.getters['entities/getList'](this.FILE_NM_USER_INFO);
-    // ②ストアになければストレッジから
-    if ( this.loginUser === null ) {
-      this.$store.dispatch('entities/setInfoFromStorage',this.FILE_NM_USER_INFO);
-      this.loginUser = this.$store.getters['entities/getList'](this.FILE_NM_USER_INFO);
-    }
-    */
+
+    //----------
+    // 独自ログインの確認
+    //   getLoginInfo (mixinで共通関数化)
+    //   ①ストア(Vuex)を確認 ②ストアになければLocalStorageを確認
+    //   格納KEYをFILE_NM_USER_INFO3(mixin)で定義
+    //----------
+    console.log("mounted getLoginInfo(独自) start with:"+this.FILE_NM_USER_INFO3);
+    this.userInfo3 = this.getLoginInfo(this.FILE_NM_USER_INFO3);
+    console.log(this.userInfo3);
+
   },
   data() {
     return {
@@ -353,7 +365,6 @@ export default {
       let url = this.AJAX_SERVER + "?" + this.AJAX_CHECK_SIGNUP;
       let resData = null;
       let resMsg = null;
-      let result = false;
 
       this.userInfo3 = null;
 
@@ -367,11 +378,12 @@ export default {
       }
 
       // 画面切り替え
+      // view_kbn 1:入力 → 2:確認 → 3:結果
       if ( this.view_kbn === '1' ) {
         this.view_kbn = '2';
         return true;
       }
-      this.view_kbn = '1';
+      this.view_kbn = '1';  // エラーの場合は入力画面に戻す
 
       // url
       url += "&userid="+this.userid+"&passwd="+this.passwd+"&usernm="+this.usernm+"&email="+this.email;
@@ -398,13 +410,11 @@ export default {
       // 確認
       console.log(resData);
       console.log("resData.data.result:"+resData.result+" message:"+resData.message);
-      result = resData.result;
-      resMsg = resData.message;
 
       // サーバ処理判定(result)確認
-      if ( ! result ) {
-          alert('【ID/PW 認証】新規登録失敗:'+resMsg);
-          console.log('【ID/PW 認証】新規登録失敗:'+resMsg);
+      if ( ! resData.result ) {
+          alert('【ID/PW 認証】新規登録失敗:'+resData.message);
+          console.log('【ID/PW 認証】新規登録失敗:'+resData.message);
           return false;
       }
 
@@ -435,7 +445,6 @@ export default {
       let url = this.AJAX_SERVER + "?" + this.AJAX_CHECK_LOGIN;
       let resData = null;
       let resMsg = null;
-      let result = false;
 
       this.userInfo3 = null;
 
@@ -474,12 +483,11 @@ export default {
         });
       // 確認
       console.log("resData.result:"+resData.result+" message:"+resData.message);
-      result = resData.result;
-      resMsg = resData.message;
+
       // サーバ処理判定(result)確認
-      if ( ! result ) {
-          alert('【ID/PW 認証】失敗:'+resMsg);
-          console.log('【ID/PW 認証】失敗:'+resMsg);
+      if ( ! resData.result ) {
+          alert('【ID/PW 認証】失敗:'+resData.message);
+          console.log('【ID/PW 認証】失敗:'+resData.message);
           return false;
       }
       // infoが取れていなければ異常終了
@@ -489,7 +497,7 @@ export default {
           return false;
       }
       this.userInfo3 = resData.info;
-      
+
       // ログイン済み状態をstoreへ
       console.log('signup3 store:'+that.FILE_NM_USER_INFO3);
       that.$store.dispatch('entities/setInfoAndStorage',[that.FILE_NM_USER_INFO3,this.userInfo3]);
@@ -500,6 +508,20 @@ export default {
 
       return true;
 
+    },
+    /*
+     * clear:Login情報をクリア 
+     */
+    clearLoginUser(argNm) {
+      // ストア＆LocalStorageをクリア
+      if ( this.clearLogin(argNm) ) {
+        // コンポーネント上からクリア
+        if ( argNm === this.FILE_NM_USER_INFO ) {
+          this.loginUser = null;
+        } else if ( argNm === this.FILE_NM_USER_INFO3 ) {
+          this.userInfo3 = null;
+        }
+      }
     },
   },
   props: {},

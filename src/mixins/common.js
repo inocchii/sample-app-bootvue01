@@ -40,6 +40,15 @@ export default {
             }
             return userInfo;
         },
+        clearLogin(argKey='') {
+            // 格納KEY
+            if ( argKey == '' ) {
+                argKey = this.FILE_NM_USER_INFO;
+            }
+            // ストアとストレッジの両方をクリア
+            this.$store.dispatch('entities/clearWithStorage',argKey);
+            return true;
+        },
         //
         // ajax正常受信の場合の結果取り出し
         //

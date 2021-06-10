@@ -50,6 +50,15 @@ export default {
             return true;
         },
         //
+        // getOuterPath 外部リンクを編集
+        //
+        getOuterPath(argBase, argTitle, argOuterUrl) {
+            console.log("Outer link base="+argBase+" title="+argTitle+" url="+argOuterUrl);
+            return (
+                argBase + "?title=" + argTitle + "&url=" + argOuterUrl + "&backPath=/"
+            );
+        },
+        //
         // ajax正常受信の場合の結果取り出し
         //
         ajaxSuccess: function(argRes) {

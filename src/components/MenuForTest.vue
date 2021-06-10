@@ -91,6 +91,7 @@
         </b-tab>
       </b-tabs>
     </div>
+    
     <!-- L1-2 リスト型（メインメニューのみで表示） -->
     <div class="p-1" id="homeLinkList" v-if="tabIndex === 0">
       <div class="">★外部サイト</div>

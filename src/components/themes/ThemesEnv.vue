@@ -74,6 +74,30 @@
         </div>
       </div>
     </div>
+    <div class="card w-100">
+      <div class="card-header">シェル備忘録</div>
+      <div class="card-body">
+        <div class="card-text">
+          <h2>bash設定</h2>
+          <h3>bash設定ファイルと反映タイミング</h3>
+          <ol>
+            <li>/etc/profile：ログイン時に実行され、全ユーザーが参照</li>
+            <li>.bash_profile：ログイン時に実行される</li>
+            <li>.bash_login：~/.bash_profileがない場合、ログイン時に実行される</li>
+            <li>.profile：~/.bash_profile、~/.bash_loginがない場合ログイン時に実行される</li>
+            <li>.bashrc：bash起動時に実行される</li>
+            <li>.bash_logout：ログアウト時に実行される</li>
+          </ol>
+          <h2>history コマンド</h2>
+          <h3>コマンド履歴をgrepして表示</h3>
+          <code>history|grep git</code>
+          <h3>コマンド履歴から行数を指定して再実行</h3>
+          <code>!行番号</code>
+          <h3>履歴行数を増やす</h3>
+          <div class="note">~/.bashrc に<code>HISTSIZE=10000</code>を設定</div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 

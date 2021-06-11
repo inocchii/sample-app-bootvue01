@@ -63,6 +63,7 @@
           </div>
           <!-- Google Map -->
           <div ref="map" style="height:500px;width:400px;"></div>
+          <div>{{myLatLng}}</div>
           <!-- Mapを操作 -->
           <h4>select で 地点 を変えて表示</h4>
           <div class="input">
@@ -71,7 +72,7 @@
                :value=point>{{point.name}}</option>
             </select><br/>
             <div class="note" v-if=(myPoint)>
-              地点：{{myPoint.latLng.lat}} & {{myPoint.latLng.lng}}
+              地点(中心)：{{myPoint.latLng.lat}} & {{myPoint.latLng.lng}}
             </div>
           </div>
           <h4>複数地点にマーカーを表示</h4>
@@ -85,7 +86,12 @@
           <h4>checkbox で 表示カテゴリ を変える</h4>
           <h4>自身のロケーションを反映</h4>
           <h4>地点間の距離を取得する</h4>
-          <h4>地図操作が終わったらエリア内マーカーを表示</h4>
+          <h4>地図操作が終わったら</h4>
+          <div class="note">地図の表示エリアを取得<br/>
+              地点(中心)：{{myLatLng}}<br/>
+              表示エリア：{{myAreaSW}} - {{myAreaNE}}
+          </div>
+          <div class="note">エリア内のマーカーを取得</div>
           <h4>マーカークリックで表示を変える</h4>
         </div>
       </div>
@@ -119,47 +125,65 @@ export default {
   name: "ArticleLogin",
 
   mounted: function() {
+    //
+    // mixinsの設定内容をdata(){}の値に設定
+    //  ※本来はdata(){}に直接セットしたいが..
+    //
     this.points = this.OUR_MAPS;
     this.myLatLng = this.points[0].latLng;
     //
-    // for Google Map
+    // Google Map for Vue component
+    //  ※scriptタグを動的に追加
     //
     // windowオブジェクトにmapLoadStartedという変数を設定し、
     // 複数のscriptタグを追加しないように制御
     if ( !window.mapLoadStarted ) {
       window.mapLoadStarted = true;
-      // scriptタグを追加し Google Map APIを読み込む
+      // scriptタグを追加
       let script = document.createElement('script');
+      // Google Map APIを読み込む
       //script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDqudlaKZ8uBB-QAc16oQTIhAxVbw0eeHw';
       script.src = 'https://maps.googleapis.com/maps/api/js?key='+this.googleMapApiKey+'&callback=initMap';
       script.async = true;
       document.head.appendChild(script);
     }
     // mapLoadStartedを開始済みに
+    //  ※ initMap はGoogle Map API 読み込み時のcallbackで指定
     window.initMap = () => {
       window.mapLoaded = true;
     }
     // Google Mapのロード完了を確認する
+    //  ※ setInterval でタイマーを回してロード完了を待たせている
     let timer = setInterval(() => {
       if( window.mapLoaded ) {
         clearInterval(timer);
-        this.map = new window.google.maps.Map(this.$refs.map, {
+        // 地図オブジェクトを生成し,画面の map エリアに配置
+        this.myMap = new window.google.maps.Map(this.$refs.map, {
           center: this.myLatLng,
           zoom: this.myZoom,
         });
-        // マーカー
-        let marker = new window.google.maps.Marker({position:this.myLatLng,map:this.map});
-        // 操作できるようにマーカーを保持
+        // マーカーオブジェクト
+        let marker = new window.google.maps.Marker({position:this.myLatLng,map:this.myMap});
+        // 後から操作できるようにマーカーオブジェクトを配列に格納
         this.myMarkers.push(marker);
+
+        // Google Map オブジェクトのイベントリスナーを登録
+        // 【地図操作後】idle イベント -> idleMapメソッドへ
+        this.myMap.addListener('idle', () => {
+          this.mapIdle(this.myMap);
+        });
       }
     },500)
   },
   data() {
     return {
-      // Google Map
-      map: '',
+      // Google Map for Vue component
+      myMap: '',
       //myLatLng: {lat: 31.795389755547117, lng: 131.4236498512721},
-      myLatLng: null,
+      myLatLng: {lat: 0, lng: 0},
+      myBounds: null,
+      myAreaSW: {lat: 0, lng: 0},
+      myAreaNE: {lat: 0, lng: 0},
       myZoom: 12,
       myPoint: null,
       myMarkers: [],
@@ -184,13 +208,24 @@ export default {
   },
   computed: {},
   methods: {
+    /* mapIdle: ユーザがmapを操作した後 */
+    mapIdle(argMap) {
+      // 中心
+      this.myLatLng = argMap.getCenter();
+      // 境界
+      this.myBounds = argMap.getBounds();
+      // 左下(South West)
+      this.myAreaSW = this.myBounds.getSouthWest();
+      // 右上(North East)
+      this.myAreaNE = this.myBounds.getNorthEast();
+    },
     /* changePoint: mapを指定位置に移動 */
     changePoint() {
       this.myLatLng = this.myPoint.latLng;
-      this.map.panTo(new window.google.maps.LatLng(this.myLatLng.lat,this.myLatLng.lng));
+      this.myMap.panTo(new window.google.maps.LatLng(this.myLatLng.lat,this.myLatLng.lng));
       let marker = new window.google.maps.Marker({
         position: this.myLatLng,
-        map: this.map,
+        map: this.myMap,
       });
       this.myMarkers.push(marker);
     },
@@ -200,7 +235,7 @@ export default {
         let marker = new window.google.maps.Marker({
           //position: {lat: point.latLng.lat, lng: point.latLng.lng},
           position: point.latLng,
-          map: this.map,
+          map: this.myMap,
         });
         this.myMarkers.push(marker);
       }
@@ -212,13 +247,13 @@ export default {
         let marker = new window.google.maps.Marker({
           //position: {lat: point.latLng.lat, lng: point.latLng.lng},
           position: point.latLng,
-          map: this.map,
+          map: this.myMap,
         });
         this.myMarkers.push(marker);
         let info = new window.google.maps.InfoWindow({
           content: point.info
         });
-        info.open(this.map,marker);
+        info.open(this.myMap,marker);
       }
     },
     /* dispMarkerAllOff: 全てのマーカーを削除 */

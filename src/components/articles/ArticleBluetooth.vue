@@ -14,10 +14,10 @@
           </ul>
           <p>参考サイト</p>
           <ul>
-            <li><a href='https://qiita.com/ElectricBaka/items/0a319be20874a6817ed0'>HTMLとJavaScriptだけでBLE通信できるのか？</a></li>
-            <li><a href='https://jellyware.jp/kuragemd/bluejelly/ble_guide.html'>開発視点の超簡単BLE入門</a></li>
-            <li><a href='https://jellyware.jp/kuragemd/bluejelly/getting_started.html'>BlueJellyって何だよ！</a></li>
-            <li><a href='https://tech.drecom.co.jp/ac2020-frontend-ble/'>WebフロントエンドエンジニアがBluetooth使うときに知っておきたいこと</a></li>
+            <li><a target="_blank" rel="noopener noreferrer" href='https://qiita.com/ElectricBaka/items/0a319be20874a6817ed0'>HTMLとJavaScriptだけでBLE通信できるのか？</a></li>
+            <li><a target="_blank" rel="noopener noreferrer" href='https://jellyware.jp/kuragemd/bluejelly/ble_guide.html'>開発視点の超簡単BLE入門</a></li>
+            <li><a target="_blank" rel="noopener noreferrer" href='https://jellyware.jp/kuragemd/bluejelly/getting_started.html'>BlueJellyって何だよ！</a></li>
+            <li><a target="_blank" rel="noopener noreferrer" href='https://tech.drecom.co.jp/ac2020-frontend-ble/'>WebフロントエンドエンジニアがBluetooth使うときに知っておきたいこと</a></li>
           </ul>
           <h2>基礎知識</h2>
           <ul>

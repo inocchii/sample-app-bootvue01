@@ -14,8 +14,10 @@ const entities = {
         user_info: null,
         user_info2: null,
         user_info3: null,
+
         // ファイルバージョンリスト
         file_version_list: null,
+
         // 分類リスト
         bun_list: null,
         // カテゴリリスト
@@ -26,6 +28,10 @@ const entities = {
         tori_list: null,
         // 商品リスト
         item_list: null,
+
+        // ショップ商品リスト
+        shop_item_list: null,
+        
         // ログ文字列の格納配列
         log_pool: [],
     },

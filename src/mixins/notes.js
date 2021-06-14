@@ -155,6 +155,14 @@ export default {
           path: "",
         },
         {
+          id: "107",
+          checked: true,
+          catg: "Vue",
+          title: "script側からtemplate要素を参照",
+          words: "tempate側を「ref=xx」としscript側で「this.$refs.xx」で参照",
+          path: "",
+        },
+        {
           id: "140",
           checked: false,
           catg: "Vue",

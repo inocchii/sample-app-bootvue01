@@ -78,6 +78,7 @@
       <div class="card-header">シェル備忘録</div>
       <div class="card-body">
         <div class="card-text">
+          <!-- -->
           <h2>bash設定</h2>
           <h3>bash設定ファイルと反映タイミング</h3>
           <ol>
@@ -88,6 +89,7 @@
             <li>.bashrc：bash起動時に実行される</li>
             <li>.bash_logout：ログアウト時に実行される</li>
           </ol>
+          <!-- -->
           <h2>history コマンド</h2>
           <h3>コマンド履歴をgrepして表示</h3>
           <code>history|grep git</code>
@@ -95,6 +97,12 @@
           <code>!行番号</code>
           <h3>履歴行数を増やす</h3>
           <div class="note">~/.bashrc に<code>HISTSIZE=10000</code>を設定</div>
+          <!-- -->
+          <h2>tcpdump コマンド</h2>
+          <h3>port 8080 を表示</h3>
+          <code>sudo tcpdump -i [lo0|en0] -A port 8080</code>
+          <h3>api.shop-pro.jp からのパケットを表示</h3>
+          <code>sudo tcpdump -i en0 -X src port 443 and src host api.shop-pro.jp</code>
         </div>
       </div>
     </div>

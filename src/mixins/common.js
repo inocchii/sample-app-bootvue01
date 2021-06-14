@@ -24,6 +24,16 @@ export default {
             console.log(argMsg);
         },
         //
+        // 件数取得
+        //
+        getCount(argObj) {
+            if( argObj === null ) {
+              return 0;
+            }
+            let val = Object.keys(argObj);
+            return val.length;
+        },
+        //
         // ログイン関連
         //
         getLoginInfo(argKey='') {
@@ -52,10 +62,10 @@ export default {
         //
         // getOuterPath 外部リンクを編集
         //
-        getOuterPath(argBase, argTitle, argOuterUrl) {
-            console.log("Outer link base="+argBase+" title="+argTitle+" url="+argOuterUrl);
+        getOuterPath(argBase, argTitle, argOuterUrl, argBackPath="") {
+            console.log("Outer link base="+argBase+" title="+argTitle+" url="+argOuterUrl+" back="+argBackPath);
             return (
-                argBase + "?title=" + argTitle + "&url=" + argOuterUrl + "&backPath=/"
+                argBase + "?title=" + argTitle + "&url=" + argOuterUrl + "&backPath=" + argBackPath
             );
         },
         //

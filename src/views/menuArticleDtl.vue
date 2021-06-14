@@ -13,6 +13,7 @@
     </div>
     <ArticleBigSearch v-if="this.$route.query.catg === 'BigSearch'" />
     <ArticleBluetooth v-if="this.$route.query.catg === 'Bluetooth'" />
+    <ArticleColorme v-if="this.$route.query.catg === 'Colorme'" />
     <ArticleCordova v-if="this.$route.query.catg === 'Cordova'" />
     <ArticleFileVersion v-else-if="this.$route.query.catg === 'FileVersion'" />
     <ArticleLogin v-if="this.$route.query.catg === 'Login'" />
@@ -31,6 +32,7 @@
 import BarTop from "@/components/BarTopV2.vue";
 import ArticleBigSearch from "@/components/articles/ArticleBigSearch.vue";
 import ArticleBluetooth from "@/components/articles/ArticleBluetooth.vue";
+import ArticleColorme from "@/components/articles/ArticleColorme.vue";
 import ArticleCordova from "@/components/articles/ArticleCordova.vue";
 import ArticleFileVersion from "@/components/articles/ArticleFileVersion.vue";
 import ArticleLogin from "@/components/articles/ArticleLogin.vue";
@@ -56,6 +58,7 @@ export default {
     BarTop,
     ArticleBigSearch,
     ArticleBluetooth,
+    ArticleColorme,
     ArticleCordova,
     ArticleFileVersion,
     ArticleLogin,

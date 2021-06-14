@@ -138,6 +138,18 @@
       </div>
     </div>
     <div class="card w-100">
+      <div class="card-header">script側からtemplate要素を参照 (ref / $refs)</div>
+      <div class="card-body">
+        <div class="card-text">
+          使用例：<router-link to="/articledtl?catg=Map">GoogleMap表示エリアをscript側から指定</router-link>
+          <div class="note">
+            template側：<code>div ref="map"</code><br/>
+            script側：<code>this.$refs.map</code>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card w-100">
       <div class="card-header">共通定義(mixin)の使用方法</div>
       <div class="card-body">
         <div class="card-text">
@@ -154,6 +166,7 @@
               AJAX_SERVER: conf.data().serverPath+'...',
 </code></pre>
           <div class="note">methodではthis.で参照できているようである</div>
+          <div class="note">→ mounted()内でdata()内項目にセット(暫定対策)</div>
         </div>
       </div>
     </div>

@@ -39,6 +39,14 @@ export default {
         // Ajax blogサーバ要求パラメータ
         AJAX_BLOG_GET_LIST: '_embed&per_page=3',
 
+        // Ajax shopサーバ
+        AJAX_SHOP_SERVER: 'https://api.shop-pro.jp/v1/',
+        //AJAX_SHOP_TOKEN: 'd32ac881135cfe1476174b0d4505bf2dca383d16516b5383dbe295e7ae8316f2',
+        AJAX_SHOP_TOKEN: 'a53185ccd768806c67c299e88994279b60cd6071f03540e056ae0545da2259a2',
+        // Ajax shopサーバ要求パラメータ
+        AJAX_SHOP_GET_ITEM_LIST: 'products.json',
+        AJAX_SHOP_GET_ITEM_INFO: 'products/',
+
         // ファイル名（ストアのKEY ＆ ローカルストレッジのKEY）
         // 単体系
         FILE_NM_USER_INFO: 'user_info',
@@ -53,6 +61,8 @@ export default {
         FILE_NM_ITEM_LIST: 'item_list',
         // 記事系
         FILE_NM_BLOG_LIST: 'blog_list',
+        // ショップ系
+        FILE_NM_SHOP_ITEM_LIST: 'shop_item_list',
       };
     },
 };

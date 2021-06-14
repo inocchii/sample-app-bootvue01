@@ -180,6 +180,13 @@ export default {
           checked: false,
         },
         {
+          id: "305",
+          title: "Ajaxで認証付き要求を行う",
+          words: "Basic認証やBearer認証時のheaderをセット",
+          checked: true,
+          path: "/articledtl?catg=Colorme&title=Colorme",
+        },
+        {
           id: "701",
           title: "Routerからルートパスへの値渡しについて",
           words: "Routerからルートパスへの値渡しについて",

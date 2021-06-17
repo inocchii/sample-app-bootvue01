@@ -1,0 +1,16 @@
+HTTP/2 401 
+server: nginx
+date: Sun, 13 Jun 2021 04:15:37 GMT
+content-type: application/json; charset=utf-8
+x-frame-options: SAMEORIGIN
+x-xss-protection: 0
+x-content-type-options: nosniff
+x-download-options: noopen
+x-permitted-cross-domain-policies: none
+referrer-policy: strict-origin-when-cross-origin
+cache-control: private, no-store
+pragma: no-cache
+www-authenticate: Bearer realm="Doorkeeper", error="invalid_token", error_description="translation missing: ja.doorkeeper.errors.messages.invalid_token.unknown"
+x-request-id: 1e68c4c3-2199-4121-9a5f-da4435e88387
+x-runtime: 0.009368
+

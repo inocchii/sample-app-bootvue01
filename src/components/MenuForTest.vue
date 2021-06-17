@@ -156,7 +156,7 @@ export default {
         },
         {
           path: "/articledtl?catg=Colorme&title=Colorme",
-          title: "□ Shop連携",
+          title: "■ Shop連携",
           words: "Color me shop 連携",
         },
         {

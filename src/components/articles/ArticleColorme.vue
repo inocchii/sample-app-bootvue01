@@ -196,7 +196,23 @@ curl -H 'Authorization: Bearer d32ac881135cfe1476174b0d4505bf2dca383d16516b5383d
           <div class="input">
             <button class="button" @click="changeShopItemList">Ajaxでサーバから取得</button>
           </div>
-          <code>URL:(mixins consts) AJAX_SHOP_SERVER:{{ this.AJAX_SHOP_SERVER }}{{ this.AJAX_SHOP_GET_ITEM_LIST }}</code>
+          <code>AJAX_SHOP_SERVER:{{ this.AJAX_SHOP_SERVER }}{{ this.AJAX_SHOP_GET_ITEM_LIST }}</code>
+          <div class="note">
+            → <code>vue.config.js</code>にproxy設定を行うことで回避<br/>
+<pre><code>Vue側：/shop-api/
+vue.config.js側：proxyで /shop-api/
+  → https://api.shop-pro.jp/
+devServer: {
+  proxy: {
+    "^/shop-api/": {
+      target: 'https://api.shop-pro.jp',
+      logLevel: 'debug',
+      pathRewrite: { "^/shop-api/": "/" }
+    }
+  }
+},
+</code></pre>
+          </div>
           <!-- 商品リストを表示(コンポーネントBlockItemを使用) -->
           <h2>商品リストを表示</h2>
           <div class="note">※コンポーネントBlockItemを使用</div>
@@ -292,7 +308,11 @@ export default {
     // ajaxGetShopItemList : Ajaxでサーバから取得
     //
     ajaxGetShopItemList: async function () {
-      let url = this.AJAX_SHOP_SERVER + "" + this.AJAX_SHOP_GET_ITEM_LIST;
+      // vue.config.js 側 proxy: 'https://api.shop-pro.jp' でOK 
+      //let url = "" + "/v1/" + this.AJAX_SHOP_GET_ITEM_LIST;
+      // vue.config.js 側 proxy: '/shop-api/'を'/'にRewiteし -> https://api.shop-pro.jp' でOK
+      //let url = "/shop-api/" + "v1/" + this.AJAX_SHOP_GET_ITEM_LIST;
+      let url = this.AJAX_SHOP_SERVER + this.AJAX_SHOP_GET_ITEM_LIST;
       //let url = "./json/products.json";
       //let authori = "{headers:{Authorization:Bearer a53185ccd768806c67c299e88994279b60cd6071f03540e056ae0545da2259a2}}";
       //let res = null;

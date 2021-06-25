@@ -355,6 +355,14 @@ export default {
           path: "",
         },
         {
+          id: "328",
+          checked: false,
+          catg: "Network",
+          title: "Network状況の判定",
+          words: "Network使用可否を判定",
+          path: "",
+        },
+        {
           id: "401",
           checked: false,
           catg: "Basic",

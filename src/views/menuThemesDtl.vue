@@ -11,15 +11,16 @@
     <div>
       catg={{ this.$route.query.catg }} title={{ this.$route.query.title }}
     </div>
-    <ThemesEnv v-if="getTemplate === 'Env'" />
-    <ThemesRule v-else-if="getTemplate === 'Rule'" />
+    <ThemesAjax v-if="getTemplate === 'Ajax'" />
     <ThemesBasic v-else-if="getTemplate === 'Basic'" />
-    <ThemesJS v-else-if="getTemplate === 'JS'" />
     <ThemesData v-else-if="getTemplate === 'Data'" />
-    <ThemesLocalStorage v-else-if="getTemplate === 'LocalStorage'" />
     <ThemesDatabase v-else-if="getTemplate === 'Database'" />
+    <ThemesEnv v-else-if="getTemplate === 'Env'" />
+    <ThemesJS v-else-if="getTemplate === 'JS'" />
     <ThemesJSON v-else-if="getTemplate === 'JSON'" />
-    <ThemesAjax v-else-if="getTemplate === 'Ajax'" />
+    <ThemesLocalStorage v-else-if="getTemplate === 'LocalStorage'" />
+    <ThemesNetwork v-else-if="getTemplate === 'Network'" />
+    <ThemesRule v-else-if="getTemplate === 'Rule'" />
     <ThemesVue v-else-if="getTemplate === 'Vue'" />
     <div v-else-if="this.$route.query.catg === 'Vuex'">Vuex</div>
     <div v-else-if="this.$route.query.catg === 'Router'">Router</div>
@@ -30,16 +31,17 @@
 <script>
 // @ is an alias to /src
 import BarTop from "@/components/BarTopV2.vue";
-import ThemesEnv from "@/components/themes/ThemesEnv.vue";
-import ThemesBasic from "@/components/themes/ThemesBasic.vue";
-import ThemesJS from "@/components/themes/ThemesJS.vue";
-import ThemesData from "@/components/themes/ThemesData.vue";
-import ThemesLocalStorage from "@/components/themes/ThemesLocalStorage.vue";
-import ThemesDatabase from "@/components/themes/ThemesDatabase.vue";
-import ThemesJSON from "@/components/themes/ThemesJSON.vue";
 import ThemesAjax from "@/components/themes/ThemesAjax.vue";
-import ThemesVue from "@/components/themes/ThemesVue.vue";
+import ThemesBasic from "@/components/themes/ThemesBasic.vue";
+import ThemesData from "@/components/themes/ThemesData.vue";
+import ThemesDatabase from "@/components/themes/ThemesDatabase.vue";
+import ThemesEnv from "@/components/themes/ThemesEnv.vue";
+import ThemesJS from "@/components/themes/ThemesJS.vue";
+import ThemesJSON from "@/components/themes/ThemesJSON.vue";
+import ThemesLocalStorage from "@/components/themes/ThemesLocalStorage.vue";
+import ThemesNetwork from "@/components/themes/ThemesNetwork.vue";
 import ThemesRule from "@/components/themes/ThemesRule.vue";
+import ThemesVue from "@/components/themes/ThemesVue.vue";
 
 export default {
   name: "Themes",
@@ -52,28 +54,30 @@ export default {
   },
   computed: {
     getTemplate() {
-      if (this.$route.query.catg == "Env") {
+      if (this.$route.query.catg == "Ajax") {
+        return "Ajax";
+      } else if (this.$route.query.catg == "BootVue") {
+        return "Basic";
+      } else if (this.$route.query.catg == "Data") {
+        return "Data";
+      } else if (this.$route.query.catg == "Database") {
+        return "Database";
+      } else if (this.$route.query.catg == "Env") {
         return "Env";
       } else if (this.$route.query.catg == "HTML") {
         return "Basic";
-      } else if (this.$route.query.catg == "BootVue") {
-        return "Basic";
-      } else if (this.$route.query.catg == "Vue") {
-        return "Vue";
       } else if (this.$route.query.catg == "JavaScript") {
         return "JS";
       } else if (this.$route.query.catg == "jQuery") {
         return "JS";
-      } else if (this.$route.query.catg == "Data") {
-        return "Data";
-      } else if (this.$route.query.catg == "LocalStorage") {
-        return "LocalStorage";
-      } else if (this.$route.query.catg == "Database") {
-        return "Database";
       } else if (this.$route.query.catg == "JSON") {
         return "JSON";
-      } else if (this.$route.query.catg == "Ajax") {
-        return "Ajax";
+      } else if (this.$route.query.catg == "LocalStorage") {
+        return "LocalStorage";
+      } else if (this.$route.query.catg == "Network") {
+        return "Network";
+      } else if (this.$route.query.catg == "Vue") {
+        return "Vue";
       } else {
         return this.$route.query.catg;
       }
@@ -81,14 +85,15 @@ export default {
   },
   components: {
     BarTop,
-    ThemesEnv,
+    ThemesAjax,
     ThemesBasic,
     ThemesData,
-    ThemesLocalStorage,
     ThemesDatabase,
+    ThemesEnv,
     ThemesJSON,
-    ThemesAjax,
     ThemesJS,
+    ThemesLocalStorage,
+    ThemesNetwork,
     ThemesRule,
     ThemesVue,
   },

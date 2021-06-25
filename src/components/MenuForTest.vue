@@ -347,6 +347,11 @@ export default {
           title: "Vuex",
           words: "Bootstrap＆VueでのVuex使用",
         },
+        {
+          path: "/themeslist?catg=Network",
+          title: "Network",
+          words: "Networkの状況把握など",
+        },
       ],
       // コンテンツ（メニュー一覧）
       menus: [

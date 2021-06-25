@@ -53,12 +53,21 @@ export default {
       points: [
         {
           id: "001",
+          title: "data()内でMixinを参照できない",
+          words:
+            "data()内での参照ができない！" +
+            "（※method系やtemplate内では可能）" +
+            " → 「create()内でプロパティにセット」が良いかも",
+          checked: true,
+        },
+        {
+          id: "002",
           title: "Mixinで他のMixinを参照できない",
           words:
             "data()内での参照ができない！" +
             " → importして「conf.data().serverPath」のようにして出来た" +
-            "（※method系はthisで出来そう）" +
-            " → 「createでプロパティにセット」としても良いかも",
+            "（※method系はthisで出来る）" +
+            " → 「create()内でプロパティにセット」が良いかも",
           checked: true,
         },
         {

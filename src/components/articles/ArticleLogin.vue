@@ -271,24 +271,27 @@ export default {
       var ncmb = new NCMB("676d04b89ce11e6121f3c08596268f65b1761c0f1e19a95f2cdff9da9ca15194","6f9629e78ce614f991b56d64c003a82f91727a0b65969efce0648e4c56e4478a");
       this.checkNcmbImport = true;
       */
-      // クラスのTestClassを作成
+      // ニフクラ上のデータストアにクラス(TestClass)を作成
       var TestClass = this.ncmb.DataStore("TestClass");
-      this.checkNcmbAccess = true;
-      // データストアへの登録
+      // データストア(TestClass)への値登録
       var testClass = new TestClass();
       testClass.set("message", "Hello, NCMB!");
+      var that = this;
       testClass.save()
         .then(function(){
           // 保存に成功した場合の処理
           console.log("checkNcmb success");
+          that.checkNcmbAccess = true;
+          that.checkNcmbData = true;
         })
         .catch(function(err){
           // 保存に失敗した場合の処理
           console.log("checkNcmb error!!");
           console.log(err);
+          alert('ニフクラが期限切れしている可能性があります');
           return false;
         });
-      this.checkNcmbData = true;
+      //this.checkNcmbData = true;
     },
     /***** ID/PW認証：新規登録 *****/
     async signupByID() { 

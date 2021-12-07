@@ -16,6 +16,10 @@ import axios from "axios";
 import VueAxios from "vue-axios";
 Vue.use(VueAxios, axios);
 
+// dexie by inok
+//import Dexie from "dexie";
+//window.iDB = new Dexie('testIDB');
+
 // jquery by inok
 //window.jq = window.jQuery = require('jquery')
 window.jq = require("jquery");
@@ -41,6 +45,10 @@ import { CSample as CSampleGlobal } from "@/components/themes/CSample.js";
 window.objSampleGlobal = new CSampleGlobal('sampleGlobal','this is sample global object');
 import { CCounter } from "@/globals/CCounter.js";
 window.objCounter = new CCounter();
+
+// Dexie をラップしたクラス
+import { CDbSet } from "@/globals/CDbSet.js";
+window.db = new CDbSet("testDb",2);
 
 Vue.config.productionTip = false;
 

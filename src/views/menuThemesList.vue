@@ -9,13 +9,12 @@
     <div class="card-group">
       <p>catg={{ catg }}</p>
       <!-- OUR_THEMESはmixins/notes.jsに定義 -->
-      <div
+      <template
         class="card"
         v-for="theme in OUR_THEMES"
-        :key="theme.title"
         :id="getAnchorId(theme.id)"
       >
-        <div v-if="isTarget(catg, theme)">
+        <div v-if="isTarget(catg, theme)" :key="theme.title">
           <router-link
             class="card text-white bg-dark"
             role="button"
@@ -33,7 +32,7 @@
             </div>
           </router-link>
         </div>
-      </div>
+      </template>
     </div>
   </div>
 </template>

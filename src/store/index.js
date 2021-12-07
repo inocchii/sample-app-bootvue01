@@ -59,6 +59,12 @@ export default new Vuex.Store({
       // 配列更新をリアクティブに反映させるため検知対象のsplice()を実施
       state.COUNTS.splice();
     },
+    setCount(state, argArr) {
+      console.log("Vuex mutation setCount key=" + argArr[0] + " set=" + argArr[1]);
+      state.COUNTS[argArr[0]] = argArr[1];
+      // 配列更新をリアクティブに反映させるため検知対象のsplice()を実施
+      state.COUNTS.splice();
+    },
   },
   actions: {
     addCount(context,argArr) {
@@ -68,6 +74,14 @@ export default new Vuex.Store({
         cnt = argArr[1];
       }
       context.commit('addCount',[argArr[0],cnt]);
+    },
+    setCount(context,argArr) {
+      console.log("Vuex action setCount key=" + argArr[0]);
+      let cnt = 1;
+      if ( argArr.length > 1 ) {
+        cnt = argArr[1];
+      }
+      context.commit('setCount',[argArr[0],cnt]);
     }
   },
 });

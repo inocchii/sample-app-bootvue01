@@ -84,7 +84,20 @@ export default {
       ],
     };
   },
-  methods: {},
+  methods: {
+    /*
+    async getCounterDb(argNm) {
+      // DBからの取得は非同期であり表示への反映が遅れるようである
+      // ※computed でも method(async/await)でも同様
+      //return function(argNm) {
+        const wCount = await window.objDb.getCount(argNm);
+        console.log("getCounterDb:"+argNm+"("+wCount+")");
+        //return wCount;
+        return 1;
+      //}
+    },
+    */
+  },
   /*
   filters: {
     updateCounter: function(argNm) {

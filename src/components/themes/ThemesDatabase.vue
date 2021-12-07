@@ -8,47 +8,60 @@
           <h2>DatabaseかLocalStorageか</h2>
           <div class="note">
             ・毎回Ajaxで入れ替えるならLocalStorageで良い<br/>
-            ・大量＆差分更新ならDatabaseが良さそう<br/>
-            ・取り出しはSQLが使えるDatabaseがベター<br/>
+            ・LocalStorageは容量制限がある(最大5MB程度)<br/>
+            ・大量＆差分更新ならDB<br/>
+            ・取り出しはSQLが使えるDB(Sqlite)がベター<br/>
             ・スピードは要確認<br/>
-            ・環境依存が少ないのLocalStorage
+            ・環境依存が少ないのはLocalStorageかindexedDb
           </div>
           <table class="table table-striped table-bordered table-sm"> 
             <thead>
-              <tr><th></th><th scope="col">LocalStorage</th><th scope="col">Database</th></tr>
+              <tr><th></th>
+                <th scope="col">LocalStorage</th>
+                <th scope="col">DB(Sqlite)</th>
+                <th scope="col">DB(indexedDb)</th>
+              </tr>
             </thead>
             <tbody>
               <tr>
                 <td>サイズ</td>
-                <td>△上限あり<br/>オリジン単位で5MBまで</td>
+                <td>△上限あり<br/>オリジン単位で<br/>5MBまで</td>
+                <td>◎かなり入りそう</td>
                 <td>◎かなり入りそう</td>
               </tr><tr>
                 <td>プラットフォーム</td>
                 <td>◎標準</td>
                 <td>△<br/>cordova依存</td>
+                <td>◎標準</td>
               </tr><tr>
                 <td>Vue(JS)</td>
                 <td>◎標準</td>
                 <td>△<br/>cordova依存</td>
+                <td>◎標準？</td>
               </tr><tr>
                 <td>入れ替え</td>
                 <td>◎<br/>丸ごと入替</td>
+                <td>△<br/>要定型化</td>
                 <td>△<br/>要定型化</td>
               </tr><tr>
                 <td>差分更新</td>
                 <td>△</td>
                 <td>◎</td>
+                <td>◎</td>
               </tr><tr>
                 <td>取り回し</td>
                 <td>○<br/>オブジェクト</td>
                 <td>○<br/>SQL</td>
+                <td>○<br/>オブジェクト</td>
               </tr><tr>
                 <td>スピード</td>
+                <td>○<br/>環境毎に要確認</td>
                 <td>○<br/>環境毎に要確認</td>
                 <td>○<br/>環境毎に要確認</td>
               </tr><tr>
                 <td>バックアップ<br/>＆リストア</td>
                 <td>○</td>
+                <td>△<br/>要定型化</td>
                 <td>△<br/>要定型化</td>
               </tr>
             </tbody>
@@ -61,9 +74,111 @@
       <div class="card-header">データベース選択肢</div>
       <div class="card-body">
         <div class="card-text">
-          <h2>SQLiteかFirebaseか</h2>
+          <h2>SQLite/indexedDb/Firebase</h2>
           <p>シンプルなのはSQLite</p>
+          <p>ブラウザ標準はindexedDb</p>
           <p>FirebaseはDB以外でも有用</p>
+        </div>
+      </div>
+    </div>
+    <!-- 記事 -->
+    <div class="card w-100">
+      <div class="card-header">IndexedDBの使用</div>
+      <div class="card-body">
+        <div class="card-text">
+          <p>前提</p>
+          <div class="mention">環境依存が少ないことが採用前提</div>
+          <p>内容</p>
+          <div class="index">
+            ・ライブラリ検討(localForage/dexie.js/JsStore)<br/>
+            ・Vue使用のためのインストール<br/>
+            ・Vueでの基本パターン<br/>
+            ・設定値や保持値の入れ物として使用<br/>
+            ・LocalStorageと同様に使用<br/>
+            ・テーブル的に使用<br/>
+            ・コーディング注意点<br/>
+            ・dbクリエイト＆ドロップ<br/>
+            ・db接続<br/>
+            ・テーブルクリエイト<br/>
+            ・クエリー（更新系）<br/>
+            ・クエリー（select）<br/>
+            ・dbクローズ<br/>
+            ・トランザクション<br/>
+            ・メンテナンス<br/>
+            ・バックアップ＆リストア
+          </div>
+          <h2>ライブラリ検討</h2>
+          <p>まずはdexie.jsで試してみる</p>
+          <table class="table table-striped table-bordered table-sm"> 
+            <thead>
+              <tr><th></th>
+                <th scope="col">localForage</th>
+                <th scope="col">dexie.js</th>
+                <th scope="col">JsStore</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>概略</td>
+                <td>シンプルなname:value形式の構文を提供。IndexdDB非対応のブラウザではlocalStorageにフォールバック</td>
+                <td>シンプルな構文により高速なコード開発が可能に</td>
+                <td>シンプルで高度なラッパー。SQLライクな文法を備える</td></tr>
+              <tr><td>人気</td>
+                <td>高</td><td>中</td><td>不明</td></tr>
+              <tr><td>サイズ</td>
+                <td>28.8K</td><td>70.8K</td><td>10.2K</td></tr>
+              <tr><td>機能</td>
+                <td>WebStorageベース</td>
+                <td>IndexedDBのラッパ</td>
+                <td>SQLライク</td></tr>
+              <tr><td>選定</td>
+                <td>△localStorage同様の使い方</td>
+                <td>◎localDBとして使用する場合</td>
+                <td>-</td></tr>
+            </tbody>
+          </table>
+          <h2>Vue使用のためのインストール</h2>
+          <div class="note">
+            <code>$ cd xxxxx (プルジェクトフォルダへ)</code><br/>
+            <code>$ npm install --save dexie （インストール）</code><br/>
+          </div>
+          <h2>Vueでの基本パターン</h2>
+            <h3>Dexieを継承したクラスを作成しそこにテーブル等を定義</h3>
+              <div class="note">
+                <code>src/globals/CDbSet.js</code>
+              </div>
+            <h3>main.jsで読み込みwindow.dbにセット</h3>
+              <div class="note">
+                <code>import { CDbSet } from "@/globals/CDbSet.js";</code><br/>
+                <code>window.db = new CDbSet("testDb",2); // DB名とVersion</code>
+              </div>
+            <h3>各モジュールではwindow.dbを使用</h3>
+              <div class="note">
+                ・テーブルからの値取得(キー指定)<br/>
+                <code>window.db.table名.get(キー値)</code><br/>
+                ・テーブルからの値取得(各種条件)<br/>
+                <code>window.db.table名.where({項目:条件値})</code><br/>
+                ・テーブルへの書き込み<br/>
+                <code>window.db.table名.put({項目１:値１,項目２:値２,・・})</code><br/>
+                ・削除、クリアなど詳細は<br/>
+                <code>https://dexie.org/docs/Table/Table</code>
+              </div>
+          <h2>設定値や保持値の入れ物として使用</h2>
+          <ul>
+            <li>conf : 初期値等を入れる</li>
+            <li>kbn_def : 区分等の定義を入れる</li>
+            <li>count : 件数等を保持する</li>
+            <li>log : ログを保持する</li>
+          </ul>
+          <p>注意点</p>
+          <div class="mention">非同期：リアクティブ使用には注意が必要</div>
+          <h2>LocalStorageと同じ様に使用</h2>
+          <p>丸ごと入替方式</p>
+          <h2>テーブル的に使用</h2>
+          <p>キーと値の持たせ方</p>
+          <p>差分更新のパターン</p>
+          <p>取り出し/追加更新/削除</p>
+          <h2>コーディング注意点</h2>
+          <p>非同期であること</p>
+          <p>リアクティブ値への取り出し＆セットは要注意</p>
         </div>
       </div>
     </div>
@@ -261,15 +376,50 @@
 export default {
   name: "ThemesData",
   data() {
-    return {};
+    return {
+      //db: window.db,
+    };
   },
-  /*
-  mounted: function(){
-    var v = this;
+  mounted: function() {
+    let wCount = this.addCount('c1');
+    console.log("ThemesDatabase window.db.count.add/put(c1)",wCount);
+    // 下段メニューバーのバッジカウントに加算してみる
+    wCount = this.addCount('search');
+    // DB登録値はリアクティブに反映されないのでvuexに設定
+    // but 非同期でありvuexへの反映が遅れるのかリアクティブには動作せず
+    //this.setCounterVuex('search',wCount);
+    console.log("ThemesDatabase window.db.count.add/put(search)",wCount);
+
   },
-  */
   computed: {},
-  methods: {},
+  methods: {
+    async addCount(argName) {
+      // DBのcountテーブルからレコード(object)を取得
+      const w = await window.db.count.get(argName);
+      console.log("getCount get name:"+argName+" obj:",w);
+      let newCount = 1;
+      // レコードの有無により
+      if ( !w ) {
+        // 存在しなければ追加
+        window.db.count.add({name: argName, counter: newCount});
+      } else {
+        // 存在していれば加算
+        if ( Number.isNaN(w.counter) ) {
+          window.db.count.put({name: argName, counter: newCount});
+        } else {
+          newCount = w.counter + 1;
+          window.db.count.put({name: argName, counter: newCount});
+        }
+      }
+      // リアクティブな保持項目(vuex)に対しては同期後にセットしてやる
+      this.setCounterVuex(argName,newCount);
+      return w;
+    },
+    setCounterVuex(argName,argCount) {
+      this.$store.dispatch('setCount',[argName,argCount]);
+      console.log("setCounterVuex:$store.setCount:"+argName+":count="+this.$store.state.COUNTS[argName]);
+    },
+  },
   props: {
     msg: String,
   },
